@@ -58,7 +58,7 @@ pipeline:
                   spec:
                     filePaths:
                       - /infra/namespace.yml
-                    skipDryRun: true
+                    skipDryRun: false
                     skipSteadyStateCheck: false
                     skipRendering: false
                     overrides: []
