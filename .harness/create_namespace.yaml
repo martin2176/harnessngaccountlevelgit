@@ -57,8 +57,8 @@ pipeline:
                   identifier: K8sApply_1
                   spec:
                     filePaths:
-                      - /namespace.yml
-                    skipDryRun: false
+                      - /infra/namespace.yml
+                    skipDryRun: true
                     skipSteadyStateCheck: false
                     skipRendering: false
                     overrides: []
