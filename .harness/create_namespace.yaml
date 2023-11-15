@@ -50,7 +50,7 @@ pipeline:
                   spec:
                     delegateSelectors:
                       - helm-delegate
-                  timeout: 10m
+                  timeout: 30s
               - step:
                   type: K8sApply
                   name: K8sApply_1
@@ -62,7 +62,7 @@ pipeline:
                     skipSteadyStateCheck: false
                     skipRendering: false
                     overrides: []
-                  timeout: 10m
+                  timeout: 30s
                   failureStrategies:
                     - onFailure:
                         errors:
