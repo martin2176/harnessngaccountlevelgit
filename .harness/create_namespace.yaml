@@ -82,8 +82,3 @@ pipeline:
                 - AllErrors
               action:
                 type: Ignore
-  properties:
-    ci:
-      codebase:
-        connectorRef: org.harnessngdemo
-        build: <+input>
