@@ -1,5 +1,6 @@
 inputSet:
-  name: filename
+  name: filename1
+  tags: {}
   identifier: filename
   orgIdentifier: tif
   projectIdentifier: demo
