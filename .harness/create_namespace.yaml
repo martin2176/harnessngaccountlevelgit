@@ -31,6 +31,9 @@ pipeline:
                         - _project_all_users
                     isAutoRejectEnabled: false
                     approverInputs: []
+                  when:
+                    stageStatus: Success
+                    condition: 1=0
         tags: {}
     - stage:
         name: apply yaml
@@ -56,8 +59,7 @@ pipeline:
                   name: K8sApply_1
                   identifier: K8sApply_1
                   spec:
-                    filePaths:
-                      - /infra/namespace.yml
+                    filePaths: <+input>
                     skipDryRun: false
                     skipSteadyStateCheck: false
                     skipRendering: false
