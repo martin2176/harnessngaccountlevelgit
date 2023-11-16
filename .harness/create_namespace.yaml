@@ -19,7 +19,7 @@ pipeline:
             steps:
               - step:
                   type: K8sDryRun
-                  name: K8sDryRun_1
+                  name: K8sDryRun_2
                   identifier: K8sDryRun_1
                   spec:
                     delegateSelectors:
