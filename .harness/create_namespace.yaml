@@ -13,7 +13,8 @@ pipeline:
         spec:
           deploymentType: Kubernetes
           service:
-            serviceRef: createnamespace
+            serviceRef: <+input>
+            serviceInputs: <+input>
           execution:
             steps:
               - step:
