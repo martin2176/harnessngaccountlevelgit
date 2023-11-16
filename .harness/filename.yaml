@@ -1,0 +1,19 @@
+inputSet:
+  name: filename
+  identifier: filename
+  orgIdentifier: tif
+  projectIdentifier: demo
+  pipeline:
+    identifier: create_namespace
+    stages:
+      - stage:
+          identifier: apply_yaml
+          type: Deployment
+          spec:
+            execution:
+              steps:
+                - step:
+                    identifier: K8sApply_1
+                    type: K8sApply
+                    spec:
+                      filePaths: <+input>
