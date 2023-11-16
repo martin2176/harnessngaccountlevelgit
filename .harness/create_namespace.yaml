@@ -33,7 +33,7 @@ pipeline:
                     approverInputs: []
                   when:
                     stageStatus: Success
-                    condition: 1=0
+                    condition: 1==0
         tags: {}
     - stage:
         name: apply yaml
