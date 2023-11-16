@@ -11,6 +11,9 @@ inputSet:
           identifier: apply_yaml
           type: Deployment
           spec:
+            service:
+              serviceRef: <+input>
+              serviceInputs: <+input>
             execution:
               steps:
                 - step:
