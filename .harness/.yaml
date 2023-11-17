@@ -1,0 +1,9 @@
+overlayInputSet:
+  name: overlay1
+  identifier: overlay1
+  orgIdentifier: tif
+  projectIdentifier: demo
+  pipelineIdentifier: create_namespace
+  inputSetReferences:
+    - filename
+  tags: {}
