@@ -21,9 +21,7 @@ pipeline:
                   type: K8sDryRun
                   name: K8sDryRun_2
                   identifier: K8sDryRun_1
-                  spec:
-                    delegateSelectors:
-                      - helm-delegate
+                  spec: {}
                   timeout: 30s
               - step:
                   type: K8sApply
