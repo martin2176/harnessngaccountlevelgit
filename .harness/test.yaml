@@ -48,8 +48,6 @@ pipeline:
                     environmentVariables: []
                     outputVariables: []
                   timeout: 1m
-                  when:
-                    stageStatus: Success
               - parallel:
                   - step:
                       type: K8sApply
