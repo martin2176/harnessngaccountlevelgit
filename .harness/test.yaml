@@ -168,7 +168,7 @@ pipeline:
                             identifier: createorupdatenamespace
                             spec:
                               filePaths:
-                                - artifacts/namespace-withoutistioninjection.yaml
+                                - namespaces/artifacts/namespace-create.yaml
                               skipDryRun: false
                               skipSteadyStateCheck: false
                               skipRendering: false
