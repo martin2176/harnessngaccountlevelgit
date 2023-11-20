@@ -50,7 +50,6 @@ pipeline:
                   timeout: 1m
                   when:
                     stageStatus: Success
-                    condition: 1 == 2
               - parallel:
                   - step:
                       type: K8sApply
