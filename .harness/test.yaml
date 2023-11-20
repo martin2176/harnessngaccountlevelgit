@@ -81,7 +81,7 @@ pipeline:
                       timeout: 30s
                       when:
                         stageStatus: Success
-                        condition: <+pipeline.variables.operation> == "enable-istio-injection"
+                        condition: <+pipeline.variables.operation> == "enableistioinjection"
                   - step:
                       type: K8sApply
                       name: disable-istio-injection
@@ -96,7 +96,7 @@ pipeline:
                       timeout: 30s
                       when:
                         stageStatus: Success
-                        condition: <+pipeline.variables.operation> == "disable-istio-injection"
+                        condition: <+pipeline.variables.operation> == "disableistioinjection"
                   - stepGroup:
                       name: delete-namespace
                       identifier: delete_namespace
@@ -205,4 +205,4 @@ pipeline:
       type: String
       description: Select the required operation on the namespace
       required: true
-      value: <+input>.default(create).allowedValues(create,update,delete,enable-istio-injection,disable-istio-injection)
+      value: <+input>.allowedValues(create,update,delete,enableistioinjection,disableistioinjection)
