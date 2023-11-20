@@ -37,14 +37,7 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: |-
-                          echo "view dry run variable"
-                          cat << EOM > manifest.yaml
-                          <+pipeline.stages.create_or_update_namespace.spec.execution.steps.k8sdryrun.k8s.ManifestDryRun>
-                          EOM
-                          cat manifest.yaml
-
-                          echo <+pipeline.stages.create_or_update_namespace.spec.execution.steps.k8sdryrun.k8s.ManifestDryRun>
+                        script: echo <+pipeline.stages.create_or_update_namespace.spec.execution.steps.k8sdryrun.k8s.ManifestDryRun>
                     environmentVariables: []
                     outputVariables: []
                   timeout: 1m
