@@ -6,7 +6,7 @@ pipeline:
   tags: {}
   stages:
     - stage:
-        name: dryrun
+        name: create_or_update_namespace
         identifier: dryrun
         description: ""
         type: Deployment
@@ -37,13 +37,32 @@ pipeline:
                       spec:
                         script: |-
                           cat << EOM > manifest.yaml
-                          <+pipeline.stages.dryrun.spec.execution.steps.k8sdryrun.k8s.ManifestDryRun>
+                          <+pipeline.stages.create_or_update_namespace.spec.execution.steps.k8sdryrun.k8s.ManifestDryRun>
                           EOM
                           cat manifest.yaml
 
-                          echo <+pipeline.stages.dryrun.spec.execution.steps.k8sdryrun.k8s.ManifestDryRun>
+                          echo <+pipeline.stages.drycreate_or_update_namespace.spec.execution.steps.k8sdryrun.k8s.ManifestDryRun>
                     environmentVariables: []
                   timeout: 1m
+              - stepGroup:
+                  name: create-namespace
+                  identifier: createnamespace
+                  steps:
+                    - step:
+                        type: K8sApply
+                        name: create-namespace
+                        identifier: createnamespace
+                        spec:
+                          filePaths:
+                            - namespaces/artifacts/namespace-create.yaml
+                          skipDryRun: false
+                          skipSteadyStateCheck: false
+                          skipRendering: false
+                          overrides: []
+                        timeout: 1m
+                  when:
+                    stageStatus: Success
+                    condition: <+pipeline.variables.operation> == "create"
             rollbackSteps: []
         tags: {}
         failureStrategies:
@@ -52,3 +71,19 @@ pipeline:
                 - AllErrors
               action:
                 type: Abort
+  variables:
+    - name: namespace
+      type: String
+      description: ""
+      required: true
+      value: <+input>
+    - name: bu
+      type: String
+      description: ""
+      required: true
+      value: <+input>
+    - name: operation
+      type: String
+      description: ""
+      required: true
+      value: <+input>.allowedValues(create,update,delete,enableistioinjection,disableistioinjection)
