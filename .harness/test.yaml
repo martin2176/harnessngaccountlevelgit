@@ -1,0 +1,209 @@
+pipeline:
+  name: namespace operations
+  identifier: namespaceoperations
+  projectIdentifier: demonstration
+  orgIdentifier: tif
+  tags: {}
+  stages:
+    - stage:
+        name: create or update or delete namespace
+        identifier: create_or_update_namespace
+        description: ""
+        type: Deployment
+        spec:
+          deploymentType: Kubernetes
+          service:
+            serviceRef: namespace
+          environment:
+            environmentRef: org.prod
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: martinaks2prod
+          execution:
+            steps:
+              - step:
+                  type: K8sDryRun
+                  name: k8sdryrun delete ns
+                  identifier: k8sdryrun_delete_ns
+                  spec: {}
+                  timeout: 1m
+              - step:
+                  type: ShellScript
+                  name: view k8s dry run
+                  identifier: view_k8s_dry_run
+                  spec:
+                    shell: Bash
+                    onDelegate: true
+                    source:
+                      type: Inline
+                      spec:
+                        script: |-
+                          echo "view dry run variable"
+                          cat << EOM > manifest.yaml
+                          <+pipeline.stages.create_or_update_namespace.spec.execution.steps.k8sdryrun_delete_ns.k8s.ManifestDryRun>
+                          EOM
+                          cat manifest.yaml
+
+                          echo <+pipeline.stages.create_or_update_namespace.spec.execution.steps.k8sdryrun_delete_ns.k8s.ManifestDryRun>
+                          echo ${<+pipeline.stages.create_or_update_namespace.spec.execution.steps.k8sdryrun_delete_ns.k8s.ManifestDryRun>}
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 1m
+                  when:
+                    stageStatus: Success
+                    condition: 1 == 2
+              - parallel:
+                  - step:
+                      type: K8sApply
+                      name: update-namespace
+                      identifier: updatenamespace
+                      spec:
+                        filePaths:
+                          - artifacts/namespace-withoutistioninjection.yaml
+                        skipDryRun: false
+                        skipSteadyStateCheck: false
+                        skipRendering: false
+                        overrides: []
+                      timeout: 30s
+                      when:
+                        stageStatus: Success
+                        condition: <+pipeline.variables.operation> == "update"
+                  - step:
+                      type: K8sApply
+                      name: enable-istio-injection
+                      identifier: enableistioinjection
+                      spec:
+                        filePaths:
+                          - artifacts/namespace-withistioninjection.yaml
+                        skipDryRun: false
+                        skipSteadyStateCheck: false
+                        skipRendering: false
+                        overrides: []
+                      timeout: 30s
+                      when:
+                        stageStatus: Success
+                        condition: <+pipeline.variables.operation> == "enable-istio-injection"
+                  - step:
+                      type: K8sApply
+                      name: disable-istio-injection
+                      identifier: disableistioinjection
+                      spec:
+                        filePaths:
+                          - artifacts/namespace-withoutistioninjection.yaml
+                        skipDryRun: false
+                        skipSteadyStateCheck: false
+                        skipRendering: false
+                        overrides: []
+                      timeout: 30s
+                      when:
+                        stageStatus: Success
+                        condition: <+pipeline.variables.operation> == "disable-istio-injection"
+                  - stepGroup:
+                      name: delete-namespace
+                      identifier: delete_namespace
+                      steps:
+                        - step:
+                            type: HarnessApproval
+                            name: delete namespace
+                            identifier: delete_namespace1
+                            spec:
+                              approvalMessage: "Pls approve/deny deletion of namespace: <+pipeline.variables.namespace>"
+                              includePipelineExecutionHistory: true
+                              isAutoRejectEnabled: false
+                              approvers:
+                                userGroups:
+                                  - org._organization_all_users
+                                minimumCount: 1
+                                disallowPipelineExecutor: false
+                              approverInputs: []
+                            timeout: 1d
+                            failureStrategies:
+                              - onFailure:
+                                  errors:
+                                    - ApprovalRejection
+                                  action:
+                                    type: Abort
+                        - step:
+                            type: K8sDelete
+                            name: delete namespace
+                            identifier: delete_namespace
+                            spec:
+                              deleteResources:
+                                type: ManifestPath
+                                spec:
+                                  manifestPaths:
+                                    - artifacts/namespace-withoutistioninjection.yaml
+                            timeout: 30s
+                      when:
+                        stageStatus: Success
+                        condition: <+pipeline.variables.operation> == "delete"
+                  - stepGroup:
+                      name: create-namespace
+                      identifier: createnamespace
+                      steps:
+                        - step:
+                            type: HarnessApproval
+                            name: create namespace
+                            identifier: create_namespace
+                            spec:
+                              approvalMessage: "Pls approve/deny creation of namespace: <+pipeline.variables.namespace>"
+                              includePipelineExecutionHistory: true
+                              isAutoRejectEnabled: false
+                              approvers:
+                                userGroups:
+                                  - org._organization_all_users
+                                minimumCount: 1
+                                disallowPipelineExecutor: false
+                              approverInputs: []
+                            timeout: 1d
+                            failureStrategies:
+                              - onFailure:
+                                  errors:
+                                    - ApprovalRejection
+                                  action:
+                                    type: Abort
+                        - step:
+                            type: K8sApply
+                            name: create-namespace
+                            identifier: createorupdatenamespace
+                            spec:
+                              filePaths:
+                                - artifacts/namespace-withoutistioninjection.yaml
+                              skipDryRun: false
+                              skipSteadyStateCheck: false
+                              skipRendering: false
+                              overrides: []
+                            timeout: 30s
+                            failureStrategies:
+                              - onFailure:
+                                  errors:
+                                    - AllErrors
+                                  action:
+                                    type: Ignore
+                      when:
+                        stageStatus: Success
+                        condition: <+pipeline.variables.operation> == "create"
+            rollbackSteps: []
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: Ignore
+  variables:
+    - name: namespace
+      type: String
+      description: Enter the name of the namespace (mandatory)
+      required: true
+      value: <+input>
+    - name: businessunit
+      type: String
+      description: Enter name of Business Unit (optional). If you don't enter one, a default value will be entered
+      required: true
+      value: <+input>.default(nobu)
+    - name: operation
+      type: String
+      description: Select the required operation on the namespace
+      required: true
+      value: <+input>.default(create).allowedValues(create,update,delete,enable-istio-injection,disable-istio-injection)
