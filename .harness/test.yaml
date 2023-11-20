@@ -55,7 +55,7 @@ pipeline:
                       identifier: updatenamespace
                       spec:
                         filePaths:
-                          - artifacts/namespace-withoutistioninjection.yaml
+                          - namespaces/artifacts/namespace-update.yaml
                         skipDryRun: false
                         skipSteadyStateCheck: false
                         skipRendering: false
@@ -70,7 +70,7 @@ pipeline:
                       identifier: enableistioinjection
                       spec:
                         filePaths:
-                          - artifacts/namespace-withistioninjection.yaml
+                          - namespaces/artifacts/namespace-enableistioinjection.yaml
                         skipDryRun: false
                         skipSteadyStateCheck: false
                         skipRendering: false
@@ -85,7 +85,7 @@ pipeline:
                       identifier: disableistioinjection
                       spec:
                         filePaths:
-                          - artifacts/namespace-withoutistioninjection.yaml
+                          - namespaces/artifacts/namespace-disableistioinjection.yaml
                         skipDryRun: false
                         skipSteadyStateCheck: false
                         skipRendering: false
@@ -128,7 +128,7 @@ pipeline:
                                 type: ManifestPath
                                 spec:
                                   manifestPaths:
-                                    - artifacts/namespace-withoutistioninjection.yaml
+                                    - namespaces/artifacts/namespace-delete.yaml
                             timeout: 30s
                       when:
                         stageStatus: Success
