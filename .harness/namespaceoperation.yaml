@@ -23,7 +23,7 @@ pipeline:
             steps:
               - step:
                   type: K8sDryRun
-                  name: k8sdryrun
+                  name: k8sdryrun1
                   identifier: k8sdryrun
                   spec: {}
                   timeout: 1m
