@@ -23,8 +23,8 @@ pipeline:
             steps:
               - step:
                   type: K8sDryRun
-                  name: k8sdryrun delete ns
-                  identifier: k8sdryrun_delete_ns
+                  name: k8sdryrun
+                  identifier: k8sdryrun
                   spec: {}
                   timeout: 1m
               - step:
@@ -40,12 +40,11 @@ pipeline:
                         script: |-
                           echo "view dry run variable"
                           cat << EOM > manifest.yaml
-                          <+pipeline.stages.create_or_update_namespace.spec.execution.steps.k8sdryrun_delete_ns.k8s.ManifestDryRun>
+                          <+pipeline.stages.create_or_update_namespace.spec.execution.steps.k8sdryrun.k8s.ManifestDryRun>
                           EOM
                           cat manifest.yaml
 
-                          echo <+pipeline.stages.create_or_update_namespace.spec.execution.steps.k8sdryrun_delete_ns.k8s.ManifestDryRun>
-                          echo ${<+pipeline.stages.create_or_update_namespace.spec.execution.steps.k8sdryrun_delete_ns.k8s.ManifestDryRun>}
+                          echo <+pipeline.stages.create_or_update_namespace.spec.execution.steps.k8sdryrun.k8s.ManifestDryRun>
                     environmentVariables: []
                     outputVariables: []
                   timeout: 1m
