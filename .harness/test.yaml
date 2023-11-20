@@ -29,7 +29,7 @@ pipeline:
                   timeout: 1m
               - step:
                   type: ShellScript
-                  name: view k8s dry run
+                  name: view k8s dry run1
                   identifier: view_k8s_dry_run
                   spec:
                     shell: Bash
