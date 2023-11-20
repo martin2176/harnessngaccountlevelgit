@@ -1,5 +1,5 @@
 pipeline:
-  name: namespace-operation
+  name: namespace-operation-old
   identifier: namespaceoperation
   projectIdentifier: demonstration
   orgIdentifier: tif
