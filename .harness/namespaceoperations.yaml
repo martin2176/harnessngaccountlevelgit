@@ -94,7 +94,7 @@ pipeline:
                       timeout: 30s
                       when:
                         stageStatus: Success
-                        condition: <+pipeline.variables.operation> == "update"
+                        condition: (<+pipeline.variables.operation> == "update") && (<+execution.steps.checkforresource.output.outputVariables.k8sresourcefound> == 1)
                   - step:
                       type: K8sApply
                       name: enable-istio-injection
@@ -109,7 +109,7 @@ pipeline:
                       timeout: 30s
                       when:
                         stageStatus: Success
-                        condition: <+pipeline.variables.operation> == "enableistioinjection"
+                        condition: <+pipeline.variables.operation> == "enableistioinjection" && (<+execution.steps.checkforresource.output.outputVariables.k8sresourcefound> == 1)
                   - step:
                       type: K8sApply
                       name: disable-istio-injection
@@ -124,7 +124,7 @@ pipeline:
                       timeout: 30s
                       when:
                         stageStatus: Success
-                        condition: <+pipeline.variables.operation> == "disableistioinjection"
+                        condition: <+pipeline.variables.operation> == "disableistioinjection" && (<+execution.steps.checkforresource.output.outputVariables.k8sresourcefound> == 1)
                   - stepGroup:
                       name: delete-namespace
                       identifier: delete_namespace
@@ -209,7 +209,7 @@ pipeline:
                                     type: Ignore
                       when:
                         stageStatus: Success
-                        condition: <+pipeline.variables.operation> == "create"
+                        condition: <+pipeline.variables.operation> == "create" && (<+execution.steps.checkforresource.output.outputVariables.k8sresourcefound> != 1)
             rollbackSteps: []
         tags: {}
         failureStrategies:
