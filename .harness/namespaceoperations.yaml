@@ -72,6 +72,21 @@ pipeline:
                       when:
                         stageStatus: Success
                         condition: <+pipeline.variables.operation> == "enableistioinjection"
+                  - step:
+                      type: K8sApply
+                      name: disable-istio-injection
+                      identifier: disableistioinjection
+                      spec:
+                        filePaths:
+                          - namespaces/artifacts/namespace-disableistioinjection.yaml
+                        skipDryRun: false
+                        skipSteadyStateCheck: false
+                        skipRendering: false
+                        overrides: []
+                      timeout: 30s
+                      when:
+                        stageStatus: Success
+                        condition: <+pipeline.variables.operation> == "disableistioinjection"
                   - stepGroup:
                       name: delete-namespace
                       identifier: delete_namespace
