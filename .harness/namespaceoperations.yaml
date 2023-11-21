@@ -73,8 +73,7 @@ pipeline:
                         stageStatus: Success
                         condition: <+pipeline.variables.operation> == "enableistioinjection"
                   - steps:
-                      - step: null
-                        type: K8sApply
+                      - type: K8sApply
                         name: disable-istio-injection
                         identifier: disableistioinjection
                         spec:
@@ -88,8 +87,7 @@ pipeline:
                         when:
                           stageStatus: Success
                           condition: <+pipeline.variables.operation> == "disableistioinjection"
-                      - step: null
-                        type: K8sApply2
+                      - type: K8sApply2
                         name: disable-istio-injection
                         identifier: disableistioinjection
                         spec:
