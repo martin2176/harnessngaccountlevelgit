@@ -41,6 +41,21 @@ pipeline:
                     environmentVariables: []
                     outputVariables: []
                   timeout: 1m
+              - step:
+                  type: ShellScriptProvision
+                  name: check-for-resource
+                  identifier: checkforresource
+                  spec:
+                    source:
+                      type: Inline
+                      spec:
+                        script: |-
+                          namespace = <+pipeline.variables.namespace>
+                          kubectl get ns $namespace  && found=1 || found=0
+
+                          echo found
+                    environmentVariables: []
+                  timeout: 1m
               - parallel:
                   - step:
                       type: K8sApply
