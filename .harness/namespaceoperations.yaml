@@ -52,7 +52,7 @@ pipeline:
                       type: Inline
                       spec:
                         script: |-
-                          namespace = <+pipeline.variables.namespace>
+                          namespace=<+pipeline.variables.namespace>
                           kubectl get ns $namespace  && found=1 || found=0
 
                           echo $found
