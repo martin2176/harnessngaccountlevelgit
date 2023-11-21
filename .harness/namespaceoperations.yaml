@@ -58,7 +58,7 @@ pipeline:
                           echo $found
                     environmentVariables: []
                     outputVariables:
-                      - name: k8sresource.found
+                      - name: k8sresourcefound
                         type: String
                         value: found
                   timeout: 1m
@@ -73,12 +73,8 @@ pipeline:
                       type: Inline
                       spec:
                         script: |-
-                          echo <+execution.steps.checkforresource.output.outputVariables.k8sresource.found>
-                          echo ${<+execution.steps.checkforresource.output.outputVariables.k8sresource.found>}
-                          echo k8sresource.found
-                          echo $k8sresource.found
-
-                          <+k8sresource.execution.steps.checkforresource.output.outputVariables.k8sresource.found>
+                          echo $found
+                          echo $k8sresourcefound
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
