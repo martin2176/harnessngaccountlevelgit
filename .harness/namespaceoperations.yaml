@@ -72,7 +72,13 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: echo <+execution.steps.checkforresource.output.outputVariables.k8sresource.found>
+                        script: |-
+                          echo <+execution.steps.checkforresource.output.outputVariables.k8sresource.found>
+                          echo ${<+execution.steps.checkforresource.output.outputVariables.k8sresource.found>}
+                          echo k8sresource.found
+                          echo $k8sresource.found
+
+                          <+k8sresource.execution.steps.checkforresource.output.outputVariables.k8sresource.found>
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
