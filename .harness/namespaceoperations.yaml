@@ -42,21 +42,25 @@ pipeline:
                     outputVariables: []
                   timeout: 1m
               - parallel:
-                  - step:
-                      type: K8sApply
-                      name: update-namespace
-                      identifier: updatenamespace
-                      spec:
-                        filePaths:
-                          - namespaces/artifacts/namespace-update.yaml
-                        skipDryRun: false
-                        skipSteadyStateCheck: false
-                        skipRendering: false
-                        overrides: []
-                      timeout: 30s
-                      when:
-                        stageStatus: Success
-                        condition: <+pipeline.variables.operation> == "update"
+                  - stepGroup:
+                      name: update-namespace-sg
+                      identifier: updatenamespacesg
+                      steps:
+                        - step:
+                            type: K8sApply
+                            name: update-namespace
+                            identifier: updatenamespace
+                            spec:
+                              filePaths:
+                                - namespaces/artifacts/namespace-update.yaml
+                              skipDryRun: false
+                              skipSteadyStateCheck: false
+                              skipRendering: false
+                              overrides: []
+                            timeout: 30s
+                            when:
+                              stageStatus: Success
+                              condition: <+pipeline.variables.operation> == "update"
                   - step:
                       type: K8sApply
                       name: enable-istio-injection
