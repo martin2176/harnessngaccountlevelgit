@@ -58,10 +58,24 @@ pipeline:
                           echo $found
                     environmentVariables: []
                     outputVariables:
-                      - name: resource.found
+                      - name: k8sresource.found
                         type: String
                         value: found
                   timeout: 1m
+              - step:
+                  type: ShellScript
+                  name: ShellScript_3
+                  identifier: ShellScript_3
+                  spec:
+                    shell: Bash
+                    onDelegate: true
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo <+execution.steps.checkforresource.output.outputVariables.resource.found>
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
               - parallel:
                   - step:
                       type: K8sApply
