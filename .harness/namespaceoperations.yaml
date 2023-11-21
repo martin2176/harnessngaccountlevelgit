@@ -163,7 +163,7 @@ pipeline:
                             timeout: 30s
                       when:
                         stageStatus: Success
-                        condition: <+pipeline.variables.operation> == "delete"
+                        condition: (<+pipeline.variables.operation> == "delete") && (<+execution.steps.checkforresource.output.outputVariables.k8sresourcefound> == 1)
                   - stepGroup:
                       name: create-namespace
                       identifier: createnamespace
