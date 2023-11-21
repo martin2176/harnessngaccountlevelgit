@@ -53,7 +53,7 @@ pipeline:
                       spec:
                         script: |-
                           namespace=<+pipeline.variables.namespace>
-                          kubectl get ns $namespace  && found=1 || found=0
+                          kubectl get ns $namespace  && export found=1 || export found=0
 
                           echo $found
                     environmentVariables: []
@@ -72,9 +72,10 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: |-
-                          echo $found
-                          echo $k8sresourcefound
+                        script: |
+                          echo <+pipeline.stages.create_or_update_namespace.spec.execution.steps.checkforresource.output.outputVariables.k8sresourcefound>
+
+                          echo <+execution.steps.checkforresource.output.outputVariables.k8sresourcefound>
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
