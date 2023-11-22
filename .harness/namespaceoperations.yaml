@@ -22,12 +22,6 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: K8sDryRun
-                  name: k8sdryrun
-                  identifier: k8sdryrun
-                  spec: {}
-                  timeout: 1m
-              - step:
                   type: ShellScript
                   name: view k8s dry run
                   identifier: view_k8s_dry_run
