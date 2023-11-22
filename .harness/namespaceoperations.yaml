@@ -193,6 +193,26 @@ pipeline:
                       when:
                         stageStatus: Success
                         condition: <+pipeline.variables.operation> == "create" && (<+execution.steps.checkforresource.output.outputVariables.k8sresourcefound> != 1)
+              - step:
+                  type: ShellScript
+                  name: resource-do-not-exist
+                  identifier: resourcedonotexist
+                  spec:
+                    shell: Bash
+                    onDelegate: true
+                    source:
+                      type: Inline
+                      spec:
+                        script: |-
+                          echo <+pipeline.variables.namespace> do not execution.steps.checkforresource.description>
+                          echo "Hence not executing the operation on namespace"
+                          echo "pls check the existence of namespace"
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 30s
+                  when:
+                    stageStatus: Success
+                    condition: <+execution.steps.checkforresource.output.outputVariables.k8sresourcefound> == 0
             rollbackSteps: []
         tags: {}
         failureStrategies:
