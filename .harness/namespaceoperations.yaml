@@ -218,9 +218,12 @@ pipeline:
                       type: Inline
                       spec:
                         script: |-
-                          echo <+pipeline.variables.namespace> do not execution.steps.checkforresource.description>
-                          echo "Hence not executing the operation on namespace"
-                          echo "pls check the existence of namespace"
+                          cat << EOM > /tmp/output
+                          Namespace: <+pipeline.variables.namespace>  not found on the cluster 
+                          Hence not executing the operation on namespace
+                          Pls check for the existence of namespace and rerun the pipeline
+                          EOM
+                          cat /tmp/output
                     environmentVariables: []
                     outputVariables: []
                   timeout: 30s
