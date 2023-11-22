@@ -123,7 +123,11 @@ pipeline:
                             name: delete namespace
                             identifier: delete_namespace1
                             spec:
-                              approvalMessage: "Pls approve/deny deletion of namespace: <+pipeline.variables.namespace>"
+                              approvalMessage: |
+                                Pls approve/deny deletion of namespace: <+pipeline.variables.namespace>
+
+                                This is the yaml which will be applied upon approval:
+                                <+pipeline.stages.create_or_update_namespace.spec.execution.steps.k8sdryrun.k8s.manifestDryRun>
                               includePipelineExecutionHistory: true
                               isAutoRejectEnabled: false
                               approvers:
@@ -162,7 +166,11 @@ pipeline:
                             name: create namespace
                             identifier: create_namespace
                             spec:
-                              approvalMessage: "Pls approve/deny creation of namespace: <+pipeline.variables.namespace>"
+                              approvalMessage: |
+                                Pls approve/deny deletion of namespace: <+pipeline.variables.namespace>
+
+                                This is the yaml which will be applied upon approval:
+                                <+pipeline.stages.create_or_update_namespace.spec.execution.steps.k8sdryrun.k8s.manifestDryRun>
                               includePipelineExecutionHistory: true
                               isAutoRejectEnabled: false
                               approvers:
