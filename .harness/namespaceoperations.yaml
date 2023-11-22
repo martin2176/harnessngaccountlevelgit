@@ -13,7 +13,7 @@ pipeline:
         spec:
           deploymentType: Kubernetes
           service:
-            serviceRef: namespace
+            serviceRef: testservice
           environment:
             environmentRef: org.prod
             deployToAll: false
@@ -22,18 +22,10 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: ShellScript
-                  name: view k8s dry run
-                  identifier: view_k8s_dry_run
-                  spec:
-                    shell: Bash
-                    onDelegate: true
-                    source:
-                      type: Inline
-                      spec:
-                        script: echo <+pipeline.stages.create_or_update_namespace.spec.execution.steps.k8sdryrun.k8s.ManifestDryRun>
-                    environmentVariables: []
-                    outputVariables: []
+                  type: K8sDryRun
+                  name: k8sdryrun
+                  identifier: k8sdryrun
+                  spec: {}
                   timeout: 1m
               - step:
                   type: ShellScript
