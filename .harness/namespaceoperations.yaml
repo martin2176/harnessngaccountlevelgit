@@ -29,6 +29,24 @@ pipeline:
                   timeout: 1m
               - step:
                   type: ShellScript
+                  name: displaymanifest
+                  identifier: displaymanifest
+                  spec:
+                    shell: Bash
+                    onDelegate: true
+                    source:
+                      type: Inline
+                      spec:
+                        script: |-
+                          cat << EOM > manifest.yaml
+                          <+pipeline.stages.create_or_update_namespace.spec.execution.steps.k8sdryrun.k8s.manifestDryRun>
+                          EOM
+                          cat manifest.yaml
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 1m
+              - step:
+                  type: ShellScript
                   name: check-for-resource
                   identifier: checkforresource
                   spec:
