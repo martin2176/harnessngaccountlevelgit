@@ -29,7 +29,7 @@ pipeline:
                   timeout: 1m
               - step:
                   type: ShellScript
-                  name: displaymanifest1
+                  name: displaymanifest
                   identifier: displaymanifest
                   spec:
                     shell: Bash
