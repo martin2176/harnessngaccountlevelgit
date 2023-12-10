@@ -253,3 +253,8 @@ pipeline:
 
       required: true
       value: <+input>.allowedValues(dev,test,prod,dr)
+    - name: serviceteam
+      type: String
+      description: ""
+      required: true
+      value: <+input>.allowedValues(tif,eco,mdm,b2c,supply)
