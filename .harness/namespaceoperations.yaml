@@ -254,3 +254,10 @@ pipeline:
       description: Select the required operation on the namespace
       required: true
       value: <+input>.allowedValues(create,update,delete,enableistioinjection,disableistioinjection)
+    - name: env
+      type: String
+      description: |+
+        Select the required env of the kubernetes cluster
+
+      required: true
+      value: <+input>.allowedValues(dev,test,prod,dr)
