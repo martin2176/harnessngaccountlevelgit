@@ -1,5 +1,6 @@
 inputSet:
   name: inputset
+  tags: {}
   identifier: inputset
   orgIdentifier: tif
   projectIdentifier: demonstration
@@ -8,16 +9,16 @@ inputSet:
     variables:
       - name: namespace
         type: String
-        value: <+input>
+        value: <+eventPayload.namespace>
       - name: businessunit
         type: String
-        value: nobu
+        value: <+eventPayload.businessunit>
       - name: operation
         type: String
-        value: <+input>
+        value: <+eventPayload.operation>
       - name: env
         type: String
-        value: <+input>
+        value: <+eventPayload.env>
       - name: serviceteam
         type: String
-        value: <+input>
+        value: <+eventPayload.serviceteam>
