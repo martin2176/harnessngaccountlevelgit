@@ -1,0 +1,23 @@
+inputSet:
+  name: inputset
+  identifier: inputset
+  orgIdentifier: tif
+  projectIdentifier: demonstration
+  pipeline:
+    identifier: namespaceoperations
+    variables:
+      - name: namespace
+        type: String
+        value: <+input>
+      - name: businessunit
+        type: String
+        value: nobu
+      - name: operation
+        type: String
+        value: <+input>
+      - name: env
+        type: String
+        value: <+input>
+      - name: serviceteam
+        type: String
+        value: <+input>
