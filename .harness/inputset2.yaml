@@ -1,5 +1,6 @@
 inputSet:
   name: inputset2
+  tags: {}
   identifier: inputset2
   orgIdentifier: tif
   projectIdentifier: demonstration
@@ -8,10 +9,10 @@ inputSet:
     variables:
       - name: namespace
         type: String
-        value: <+trigger.payload.namespace>
+        value: <+input>
       - name: businessunit
         type: String
-        value: <+trigger.payload.namespace>
+        value: <+input>
       - name: operation
         type: String
         value: <+input>
