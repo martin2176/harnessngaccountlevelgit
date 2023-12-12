@@ -9,16 +9,16 @@ inputSet:
     variables:
       - name: namespace
         type: String
-        value: <+eventPayload.namespace>
+        value: <+trigger.payload.namespace>
       - name: businessunit
         type: String
-        value: <+eventPayload.businessunit>
+        value: <+trigger.payload.businessunit>
       - name: operation
         type: String
-        value: <+eventPayload.operation>
+        value: <+trigger.payload.operation>
       - name: env
         type: String
-        value: <+eventPayload.env>
+        value: <+trigger.payload.env>
       - name: serviceteam
         type: String
-        value: <+eventPayload.serviceteam>
+        value: <+trigger.payload.serviceteam>
