@@ -238,7 +238,7 @@ pipeline:
       value: <+input>
     - name: businessunit
       type: String
-      description: Enter name of Business Unit (optional). If you don't enter one, a default value will be entered
+      description: Enter name of Business Unit (optional). If you don't enter one, a default value of nobu will be entered
       required: true
       value: <+input>.default(nobu)
     - name: operation
@@ -255,6 +255,6 @@ pipeline:
       value: <+input>.allowedValues(dev,test,prod,dr)
     - name: serviceteam
       type: String
-      description: ""
+      description: Select the required service team for the namespace
       required: true
       value: <+input>.allowedValues(tif,eco,mdm,b2c,supply)
