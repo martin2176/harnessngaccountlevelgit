@@ -1,0 +1,20 @@
+inputSet:
+  name: runtime
+  identifier: runtime
+  orgIdentifier: tif
+  projectIdentifier: demonstration
+  pipeline:
+    identifier: namespaceoperations
+    variables:
+      - name: namespace
+        type: String
+        value: <+input>
+      - name: businessunit
+        type: String
+        value: <+input>
+      - name: operation
+        type: String
+      - name: env
+        type: String
+      - name: serviceteam
+        type: String
