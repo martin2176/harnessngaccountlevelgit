@@ -235,26 +235,26 @@ pipeline:
       type: String
       description: Enter the name of the namespace (mandatory)
       required: true
-      value: <+input>.default(<+trigger.payload.namespace>)
+      value: <+input>
     - name: businessunit
       type: String
       description: Enter name of Business Unit (optional). If you don't enter one, a default value of nobu will be entered
       required: true
-      value: <+input>.default(<+trigger.payload.businessunit>)
+      value: <+input>
     - name: operation
       type: String
       description: Select the required operation on the namespace
       required: true
-      value: <+input>.default(<+trigger.payload.operation>).allowedValues(create,update,delete,enableistioinjection,disableistioinjection,<+trigger.payload.operation>)
+      value: <+input>.allowedValues(create,update,delete,enableistioinjection,disableistioinjection)
     - name: env
       type: String
       description: |+
         Select the required env of the kubernetes cluster
 
       required: true
-      value: <+input>.default(<+trigger.payload.env>).allowedValues(dev,test,prod,dr,<+trigger.payload.env>)
+      value: <+input>.allowedValues(dev,test,prod,dr)
     - name: serviceteam
       type: String
       description: Select the required service team for the namespace
       required: true
-      value: <+input>.default(<+trigger.payload.serviceteam>).allowedValues(tif,eco,mdm,b2c,supply,<+trigger.payload.serviceteam>)
+      value: <+input>.allowedValues(tif,eco,mdm,b2c,supply)
