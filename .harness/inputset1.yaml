@@ -9,10 +9,10 @@ inputSet:
     variables:
       - name: namespace
         type: String
-        value: <+input>
+        value: <+trigger.payload.namespace>
       - name: businessunit
         type: String
-        value: <+input>
+        value: <+trigger.payload.businessunit>
       - name: operation
         type: String
         value: <+trigger.payload.operation>
