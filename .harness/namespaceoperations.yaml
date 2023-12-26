@@ -222,7 +222,7 @@ pipeline:
                   timeout: 30s
                   when:
                     stageStatus: Success
-                    condition: <+execution.steps.checkforresource.output.outputVariables.k8sresourcefound> == 0
+                    condition: (<+execution.steps.checkforresource.output.outputVariables.k8sresourcefound> == 0)
             rollbackSteps: []
         tags: {}
         failureStrategies:
