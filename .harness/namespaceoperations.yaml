@@ -120,6 +120,12 @@ pipeline:
                       identifier: delete_namespace
                       steps:
                         - step:
+                            name: delete-namespace-teams-notification
+                            identifier: deletenamespaceteamsnotification
+                            template:
+                              templateRef: org.teamsnotificationcloudteam
+                              versionLabel: v1
+                        - step:
                             type: HarnessApproval
                             name: delete namespace
                             identifier: delete_namespace1
@@ -158,6 +164,12 @@ pipeline:
                       name: create-namespace
                       identifier: createnamespace
                       steps:
+                        - step:
+                            name: create-namespace-teams-notification
+                            identifier: createnamespaceteamsnotification
+                            template:
+                              templateRef: org.teamsnotificationcloudteam
+                              versionLabel: v1
                         - step:
                             type: HarnessApproval
                             name: create namespace
@@ -259,3 +271,13 @@ pipeline:
       description: Select the required service team for the namespace
       required: true
       value: <+input>.allowedValues(tif,eco,mdm,b2c,supply)
+    - name: pipelineapprovaltitle
+      type: String
+      description: ""
+      required: true
+      value: You have a pipeline waiting on approval phase
+    - name: pipelineapprovalsubtitle
+      type: String
+      description: ""
+      required: true
+      value: Pls approve/reject the pipeline stage
