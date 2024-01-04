@@ -77,10 +77,6 @@ pipeline:
                           git config user.email
                            git config user.name
                           git commit -m "adding preview files"
-                          #git push -u https://martin2176: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@github.com/martin2176/harness-k8syaml-preview.git main
-
-                          #git push -u https://martin2176:<+secrets.getValue("martin2176githubcred")>@github.com/martin2176/harness-k8syaml-preview.git main
-
 
                           git push -u https://martin2176:<+secrets.getValue("account.martin2176git")>@github.com/martin2176/harness-k8syaml-preview.git main
 
