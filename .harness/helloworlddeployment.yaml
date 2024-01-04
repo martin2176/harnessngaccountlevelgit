@@ -142,3 +142,14 @@ pipeline:
                 - AllErrors
               action:
                 type: StageRollback
+  variables:
+    - name: pipelineapprovaltitle
+      type: String
+      description: ""
+      required: true
+      value: You have a pipeline waiting on approval phase
+    - name: pipelineapprovalsubtitle
+      type: String
+      description: ""
+      required: true
+      value: Pls approve/reject the pipeline stage
