@@ -1,0 +1,25 @@
+inputSet:
+  name: inputset-for-git-release
+  identifier: inputsetforgitrelease
+  orgIdentifier: tif
+  projectIdentifier: demonstration
+  pipeline:
+    identifier: helloworlddeployment
+    stages:
+      - stage:
+          identifier: helloworlddeployment
+          type: Deployment
+          spec:
+            service:
+              serviceInputs:
+                serviceDefinition:
+                  type: Kubernetes
+                  spec:
+                    artifacts:
+                      primary:
+                        primaryArtifactRef: helloworld
+                        sources:
+                          - identifier: helloworld
+                            type: DockerRegistry
+                            spec:
+                              tag: <+trigger.payload.release.name>
