@@ -1,0 +1,138 @@
+pipeline:
+  name: helloworld-deployment
+  identifier: helloworlddeployment
+  projectIdentifier: demonstration
+  orgIdentifier: tif
+  tags: {}
+  stages:
+    - stage:
+        name: helloworld-deployment
+        identifier: helloworlddeployment
+        description: ""
+        type: Deployment
+        spec:
+          deploymentType: Kubernetes
+          service:
+            serviceRef: helloworld
+            serviceInputs:
+              serviceDefinition:
+                type: Kubernetes
+                spec:
+                  artifacts:
+                    primary:
+                      primaryArtifactRef: <+input>
+                      sources: <+input>
+          environment:
+            environmentRef: org.prod
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: martinaks2demo2
+          execution:
+            steps:
+              - step:
+                  type: K8sDryRun
+                  name: K8sDryRun
+                  identifier: K8sDryRun_1
+                  spec: {}
+                  timeout: 10m
+              - step:
+                  type: ShellScript
+                  name: ShellScript
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    onDelegate: true
+                    source:
+                      type: Inline
+                      spec:
+                        script: |
+                          echo <+artifacts.primary.image>
+                          echo <+artifacts.primary.imagePath>
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+              - step:
+                  type: ShellScript
+                  name: post-to-git
+                  identifier: posttogit
+                  spec:
+                    shell: Bash
+                    onDelegate: true
+                    source:
+                      type: Inline
+                      spec:
+                        script: |+
+                          rm -rf /tmp/preview
+                          mkdir -p /tmp/preview
+                          cd /tmp/preview
+                          git clone https://github.com/martin2176/harness-k8syaml-preview
+                          cd harness-k8syaml-preview/
+                          cat << EOM > k8syamlpreview-<+pipeline.executionId>.yaml
+                          <+pipeline.stages.helloworlddeployment.spec.execution.steps.K8sDryRun_1.k8s.manifestDryRun>
+                          EOM
+
+                          git add --all
+                          git config user.email "martin2176@yahoo.com"
+                          git config user.name "martin2176@yahoo.com"
+
+                          git config user.email
+                           git config user.name
+                          git commit -m "adding preview files"
+                          #git push -u https://martin2176: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@github.com/martin2176/harness-k8syaml-preview.git main
+
+                          git push -u https://martin2176:<+secrets.getValue("martin2176githubcred")>@github.com/martin2176/harness-k8syaml-preview.git main
+
+
+
+
+
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 1m
+              - step:
+                  type: HarnessApproval
+                  name: HarnessApproval
+                  identifier: HarnessApproval_1
+                  spec:
+                    approvalMessage: |-
+                      Please review the following information and approve the pipeline progression. 
+                       The yaml that will be applied can be previewed at following link: 
+                       
+
+                      https://github.com/martin2176/harness-k8syaml-preview/blob/main/k8syamlpreview-<+pipeline.executionId>.yaml
+                    includePipelineExecutionHistory: false
+                    isAutoRejectEnabled: false
+                    approvers:
+                      userGroups:
+                        - account._account_all_users
+                        - account.ecomdeveloper
+                        - account.ecomadmin
+                      minimumCount: 1
+                      disallowPipelineExecutor: false
+                    approverInputs: []
+                  timeout: 1d
+              - step:
+                  name: Rollout Deployment
+                  identifier: rolloutDeployment
+                  type: K8sRollingDeploy
+                  timeout: 10m
+                  spec:
+                    skipDryRun: false
+                    pruningEnabled: false
+                  when:
+                    stageStatus: Success
+            rollbackSteps:
+              - step:
+                  name: Rollback Rollout Deployment
+                  identifier: rollbackRolloutDeployment
+                  type: K8sRollingRollback
+                  timeout: 10m
+                  spec:
+                    pruningEnabled: false
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
