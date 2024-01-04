@@ -90,6 +90,12 @@ pipeline:
                     outputVariables: []
                   timeout: 1m
               - step:
+                  name: teamsnotification
+                  identifier: teamsnotification
+                  template:
+                    templateRef: org.teamsnotificationcloudteam
+                    versionLabel: v1
+              - step:
                   type: HarnessApproval
                   name: HarnessApproval
                   identifier: HarnessApproval_1
