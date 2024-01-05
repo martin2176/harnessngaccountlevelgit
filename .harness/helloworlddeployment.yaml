@@ -41,15 +41,16 @@ pipeline:
                   identifier: ShellScript_1
                   spec:
                     shell: Bash
-                    onDelegate: true
                     source:
                       type: Inline
                       spec:
                         script: |
                           echo <+artifacts.primary.image>
                           echo <+artifacts.primary.imagePath>
+                          echo <+artifacts.primary.tag>
                     environmentVariables: []
                     outputVariables: []
+                    executionTarget: {}
                   timeout: 10m
               - step:
                   type: ShellScript
