@@ -1,0 +1,18 @@
+inputSet:
+  name: watch-dev-branch-deploy-to-namespace-dev-branch
+  identifier: watchdevbranchdeploytonamespacedevbranch
+  orgIdentifier: tif
+  projectIdentifier: tifservices
+  pipeline:
+    identifier: k8sdeploymenttoanyenvironment
+    stages:
+      - stage:
+          identifier: k8sdeployment
+          type: Deployment
+          spec:
+            service:
+              serviceRef: <+trigger.payload.repository.name>
+            environment:
+              environmentRef: aksdev
+              infrastructureDefinitions:
+                - identifier: devbranch
