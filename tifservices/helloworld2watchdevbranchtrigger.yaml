@@ -24,7 +24,7 @@ inputSet:
                           - identifier: devhelloworld2dockerregistry
                             type: DockerRegistry
                             spec:
-                              tag: dummy
+                              tag: version1
             environment:
               environmentRef: aksdev
               infrastructureDefinitions:
