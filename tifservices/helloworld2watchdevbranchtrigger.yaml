@@ -1,5 +1,6 @@
 inputSet:
   name: helloworld2-watch-dev-branch-trigger
+  tags: {}
   identifier: helloworld2watchdevbranchtrigger
   orgIdentifier: tif
   projectIdentifier: tifservices
@@ -23,7 +24,7 @@ inputSet:
                           - identifier: devhelloworld2dockerregistry
                             type: DockerRegistry
                             spec:
-                              tag: version1
+                              tag: dummy
             environment:
               environmentRef: aksdev
               infrastructureDefinitions:
