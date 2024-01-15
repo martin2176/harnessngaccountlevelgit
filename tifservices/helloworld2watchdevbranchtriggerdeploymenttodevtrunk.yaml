@@ -1,0 +1,30 @@
+inputSet:
+  name: helloworld2-watch-dev-branch-triggerdeployment-to-dev-trunk
+  identifier: helloworld2watchdevbranchtriggerdeploymenttodevtrunk
+  orgIdentifier: tif
+  projectIdentifier: tifservices
+  pipeline:
+    identifier: k8sdeploymenttoanyenvironment
+    stages:
+      - stage:
+          identifier: k8sdeployment
+          type: Deployment
+          spec:
+            service:
+              serviceRef: helloworld2
+              serviceInputs:
+                serviceDefinition:
+                  type: Kubernetes
+                  spec:
+                    artifacts:
+                      primary:
+                        primaryArtifactRef: devhelloworld2dockerregistry
+                        sources:
+                          - identifier: devhelloworld2dockerregistry
+                            type: DockerRegistry
+                            spec:
+                              tag: version1
+            environment:
+              environmentRef: aksdev
+              infrastructureDefinitions:
+                - identifier: devtrunk
