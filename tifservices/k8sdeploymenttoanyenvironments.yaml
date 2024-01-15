@@ -24,12 +24,6 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: Wait
-                  name: Wait_1
-                  identifier: Wait_1
-                  spec:
-                    duration: 1m
-              - step:
                   name: k8srolloutdeployment
                   identifier: k8srolloutdeployment
                   type: K8sRollingDeploy
