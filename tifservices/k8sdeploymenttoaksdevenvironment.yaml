@@ -27,7 +27,6 @@ pipeline:
                   timeout: 10m
                   when:
                     stageStatus: Success
-                    condition: "false"
               - step:
                   type: Wait
                   name: 1mwait
