@@ -28,12 +28,6 @@ pipeline:
                   when:
                     stageStatus: Success
               - step:
-                  type: Wait
-                  name: 1mwait
-                  identifier: mwait
-                  spec:
-                    duration: 2m
-              - step:
                   type: K8sRollingDeploy
                   name: k8srolloutdeployment
                   identifier: k8srolloutdeployment
