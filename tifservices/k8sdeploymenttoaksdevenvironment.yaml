@@ -33,7 +33,7 @@ pipeline:
                   name: 1mwait
                   identifier: mwait
                   spec:
-                    duration: 1m
+                    duration: 2m
               - step:
                   type: K8sRollingDeploy
                   name: k8srolloutdeployment
