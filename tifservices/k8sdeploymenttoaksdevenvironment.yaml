@@ -15,19 +15,6 @@ pipeline:
           service:
             serviceRef: <+input>
             serviceInputs: <+input>
-          environments:
-            metadata:
-              parallel: true
-            values:
-              - environmentRef: aksdev
-                deployToAll: false
-                infrastructureDefinitions:
-                  - identifier: devbranch
-                  - identifier: devtrunk
-                  - identifier: atbranch
-                  - identifier: attrunk
-                  - identifier: intbranch
-                  - identifier: inttrunk
           execution:
             steps:
               - step:
@@ -46,6 +33,11 @@ pipeline:
                   timeout: 10m
                   spec:
                     pruningEnabled: false
+          environment:
+            environmentRef: aksdev
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: intbranch
         tags: {}
         failureStrategies:
           - onFailure:
