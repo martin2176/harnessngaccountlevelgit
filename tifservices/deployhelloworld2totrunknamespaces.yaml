@@ -1,0 +1,26 @@
+inputSet:
+  name: deploy-helloworld2-to-trunk-namespaces
+  identifier: deployhelloworld2totrunknamespaces
+  orgIdentifier: tif
+  projectIdentifier: tifservices
+  pipeline:
+    identifier: k8sdeploymenttoaksdevenvironment
+    stages:
+      - stage:
+          identifier: k8sdeployment
+          type: Deployment
+          spec:
+            service:
+              serviceRef: helloworld2
+              serviceInputs:
+                serviceDefinition:
+                  type: Kubernetes
+                  spec:
+                    artifacts:
+                      primary:
+                        primaryArtifactRef: devhelloworld2dockerregistry
+                        sources:
+                          - identifier: devhelloworld2dockerregistry
+                            type: DockerRegistry
+                            spec:
+                              tag: snapshot
