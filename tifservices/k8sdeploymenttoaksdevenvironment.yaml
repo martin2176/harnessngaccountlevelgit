@@ -18,6 +18,20 @@ pipeline:
           execution:
             steps:
               - step:
+                  type: Queue
+                  name: queue-pipeline-on-int-branch
+                  identifier: queuepipelineonintbranch
+                  spec:
+                    key: <+env.identifier>-<+infra.infraIdentifier>
+                    scope: Pipeline
+                  timeout: 10m
+              - step:
+                  type: Wait
+                  name: 1mwait
+                  identifier: mwait
+                  spec:
+                    duration: 1m
+              - step:
                   type: K8sRollingDeploy
                   name: k8srolloutdeployment
                   identifier: k8srolloutdeployment
