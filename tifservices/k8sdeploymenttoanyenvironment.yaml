@@ -1,49 +1,74 @@
----
 pipeline:
-  projectIdentifier: "tifservices"
-  orgIdentifier: "tif"
+  projectIdentifier: tifservices
+  orgIdentifier: tif
   tags: {}
   stages:
-  - stage:
-      name: "k8sdeployment"
-      identifier: "k8sdeployment"
-      description: ""
-      type: "Deployment"
-      spec:
-        deploymentType: "Kubernetes"
-        service:
-          serviceRef: "<+input>"
-          serviceInputs: "<+input>"
-        environment:
-          environmentRef: "<+input>"
-          deployToAll: false
-          environmentInputs: "<+input>"
-          serviceOverrideInputs: "<+input>"
-          infrastructureDefinitions: "<+input>"
-        execution:
-          steps:
-          - step:
-              name: "k8srolloutdeployment"
-              identifier: "k8srolloutdeployment"
-              type: "K8sRollingDeploy"
-              timeout: "1m"
-              spec:
-                skipDryRun: false
-                pruningEnabled: false
-          rollbackSteps:
-          - step:
-              name: "Rollback Rollout Deployment"
-              identifier: "rollbackRolloutDeployment"
-              type: "K8sRollingRollback"
-              timeout: "10m"
-              spec:
-                pruningEnabled: false
-      tags: {}
-      failureStrategies:
-      - onFailure:
-          errors:
-          - "AllErrors"
-          action:
-            type: "StageRollback"
-  identifier: "k8sdeploymenttoanyenvironment"
-  name: "k8sdeployment-to-any-environment"
+    - stage:
+        name: k8sdeployment
+        identifier: k8sdeployment
+        description: ""
+        type: Deployment
+        spec:
+          deploymentType: Kubernetes
+          service:
+            serviceRef: <+input>
+            serviceInputs: <+input>
+          environment:
+            environmentRef: <+input>
+            deployToAll: false
+            environmentInputs: <+input>
+            serviceOverrideInputs: <+input>
+            infrastructureDefinitions: <+input>
+          execution:
+            steps:
+              - step:
+                  type: Queue
+                  name: queue-on-namespace
+                  identifier: queueonnamespace
+                  spec:
+                    key: "11"
+                    scope: Pipeline
+                  timeout: 10m
+              - step:
+                  type: ShellScript
+                  name: ShellScript_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: |-
+                          echo <+env.identifier>-<+infra.infraIdentifier>
+
+                          echo <+env.identifier>
+                          echo <+infra.infraIdentifier>
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+              - step:
+                  name: k8srolloutdeployment
+                  identifier: k8srolloutdeployment
+                  type: K8sRollingDeploy
+                  timeout: 1m
+                  spec:
+                    skipDryRun: false
+                    pruningEnabled: false
+            rollbackSteps:
+              - step:
+                  name: Rollback Rollout Deployment
+                  identifier: rollbackRolloutDeployment
+                  type: K8sRollingRollback
+                  timeout: 10m
+                  spec:
+                    pruningEnabled: false
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
+  identifier: k8sdeploymenttoanyenvironment
+  name: k8sdeployment-to-any-environment
