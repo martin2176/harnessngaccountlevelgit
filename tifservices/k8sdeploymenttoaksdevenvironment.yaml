@@ -17,7 +17,7 @@ pipeline:
             serviceInputs: <+input>
           environments:
             metadata:
-              parallel: true
+              parallel: false
             values:
               - environmentRef: aksdev
                 deployToAll: false
