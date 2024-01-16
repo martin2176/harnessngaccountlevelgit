@@ -25,6 +25,9 @@ pipeline:
                     key: <+env.identifier>-<+infra.infraIdentifier>
                     scope: Pipeline
                   timeout: 10m
+                  when:
+                    stageStatus: Success
+                    condition: "false"
               - step:
                   type: Wait
                   name: 1mwait
