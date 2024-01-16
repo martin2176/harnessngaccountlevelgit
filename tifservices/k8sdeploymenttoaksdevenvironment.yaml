@@ -1,0 +1,55 @@
+pipeline:
+  name: k8sdeployment-to-aksdev-environment
+  identifier: k8sdeploymenttoaksdevenvironment
+  projectIdentifier: tifservices
+  orgIdentifier: tif
+  tags: {}
+  stages:
+    - stage:
+        name: k8sdeployment
+        identifier: k8sdeployment
+        description: ""
+        type: Deployment
+        spec:
+          deploymentType: Kubernetes
+          service:
+            serviceRef: <+input>
+            serviceInputs: <+input>
+          environments:
+            metadata:
+              parallel: true
+            values:
+              - environmentRef: aksdev
+                deployToAll: false
+                infrastructureDefinitions:
+                  - identifier: devbranch
+                  - identifier: devtrunk
+                  - identifier: atbranch
+                  - identifier: attrunk
+                  - identifier: intbranch
+                  - identifier: inttrunk
+          execution:
+            steps:
+              - step:
+                  type: K8sRollingDeploy
+                  name: k8srolloutdeployment
+                  identifier: k8srolloutdeployment
+                  spec:
+                    skipDryRun: false
+                    pruningEnabled: false
+                  timeout: 2m
+            rollbackSteps:
+              - step:
+                  name: Rollback Rollout Deployment
+                  identifier: rollbackRolloutDeployment
+                  type: K8sRollingRollback
+                  timeout: 10m
+                  spec:
+                    pruningEnabled: false
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
