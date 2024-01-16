@@ -48,6 +48,8 @@ pipeline:
                           echo <+artifacts.primary.image>
                           echo <+artifacts.primary.imagePath>
                           echo <+artifacts.primary.tag>
+                          echo <+artifacts.primary.image>
+                          echo <+artifacts.primary.imagePath>
                     environmentVariables: []
                     outputVariables: []
                     executionTarget: {}
