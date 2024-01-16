@@ -44,12 +44,18 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: |
-                          echo <+artifacts.primary.image>
-                          echo <+artifacts.primary.imagePath>
+                        script: |+
                           echo <+artifacts.primary.tag>
                           echo <+artifacts.primary.image>
                           echo <+artifacts.primary.imagePath>
+                          echo "_______________"
+                          echo <+artifact.tag>
+                          echo <+artifact.imagePath>
+                          echo <+artifact.image>
+                          echo <+artifact.imagePath>
+                          echo <+artifact.connectorRef>
+                          echo <+artifact.identifier>
+
                     environmentVariables: []
                     outputVariables: []
                     executionTarget: {}
