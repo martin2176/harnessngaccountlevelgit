@@ -1,0 +1,26 @@
+inputSet:
+  name: deploy-helloworld3-to-branch-namespaces
+  identifier: deployhelloworld3tobranchnamespaces
+  orgIdentifier: tif
+  projectIdentifier: tifservices
+  pipeline:
+    identifier: k8sdeploymenttoaksdevenvironment
+    stages:
+      - stage:
+          identifier: k8sdeployment
+          type: Deployment
+          spec:
+            service:
+              serviceRef: helloworld3
+              serviceInputs:
+                serviceDefinition:
+                  type: Kubernetes
+                  spec:
+                    artifacts:
+                      primary:
+                        primaryArtifactRef: devhelloworld3dockerregistry
+                        sources:
+                          - identifier: devhelloworld3dockerregistry
+                            type: DockerRegistry
+                            spec:
+                              tag: br_snapshot
