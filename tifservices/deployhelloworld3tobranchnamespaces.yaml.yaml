@@ -1,5 +1,6 @@
 inputSet:
   name: deploy-helloworld3-to-branchnamespaces
+  tags: {}
   identifier: deployhelloworld3tobranchnamespaces
   orgIdentifier: tif
   projectIdentifier: tifservices
