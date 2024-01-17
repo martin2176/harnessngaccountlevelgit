@@ -1,0 +1,27 @@
+inputSet:
+  name: deploy helloworld2 to prod and dr
+  identifier: deploy_helloworld2_to_prod_and_dr
+  orgIdentifier: tif
+  projectIdentifier: tifservices
+  pipeline:
+    identifier: k8sdeploymenttoprodanddrnamespaces
+    stages:
+      - stage:
+          identifier: k8sdeployment
+          type: Deployment
+          spec:
+            services:
+              values:
+                - serviceRef: helloworld2
+                  serviceInputs:
+                    serviceDefinition:
+                      type: Kubernetes
+                      spec:
+                        artifacts:
+                          primary:
+                            primaryArtifactRef: prodhelloworld2dockerregistry
+                            sources:
+                              - identifier: prodhelloworld2dockerregistry
+                                type: DockerRegistry
+                                spec:
+                                  tag: nonselectable
