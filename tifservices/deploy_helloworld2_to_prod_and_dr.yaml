@@ -1,6 +1,8 @@
 inputSet:
   name: deploy helloworld2 to prod and dr
+  tags: {}
   identifier: deploy_helloworld2_to_prod_and_dr
+  description: This will deploy helloworld2 to prod and dr and on dr will scale down replicas to 0
   orgIdentifier: tif
   projectIdentifier: tifservices
   pipeline:
