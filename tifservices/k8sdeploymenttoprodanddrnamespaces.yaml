@@ -38,9 +38,10 @@ pipeline:
                   timeout: 10m
                   spec:
                     pruningEnabled: false
-          service:
-            serviceRef: <+input>
-            serviceInputs: <+input>
+          services:
+            values: <+input>
+            metadata:
+              parallel: true
         tags: {}
         failureStrategies:
           - onFailure:
