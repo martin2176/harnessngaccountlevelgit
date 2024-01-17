@@ -20,6 +20,10 @@ pipeline:
                 deployToAll: false
                 infrastructureDefinitions:
                   - identifier: prodnamespace
+              - environmentRef: aksdr
+                deployToAll: false
+                infrastructureDefinitions:
+                  - identifier: drnamespace
           execution:
             steps:
               - step:
