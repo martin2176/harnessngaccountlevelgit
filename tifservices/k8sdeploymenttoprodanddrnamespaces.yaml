@@ -15,7 +15,7 @@ pipeline:
           services:
             values: <+input>
             metadata:
-              parallel: false
+              parallel: true
           environments:
             metadata:
               parallel: true
