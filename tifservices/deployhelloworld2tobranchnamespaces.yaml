@@ -1,5 +1,6 @@
 inputSet:
   name: deploy-helloworld2-to-branchnamespaces
+  tags: {}
   identifier: deployhelloworld2tobranchnamespaces
   orgIdentifier: tif
   projectIdentifier: tifservices
@@ -11,16 +12,16 @@ inputSet:
           type: Deployment
           spec:
             service:
-              serviceRef: helloworld3
+              serviceRef: helloworld2
               serviceInputs:
                 serviceDefinition:
                   type: Kubernetes
                   spec:
                     artifacts:
                       primary:
-                        primaryArtifactRef: devhelloworld3dockerregistry
+                        primaryArtifactRef: devhelloworld2dockerregistry
                         sources:
-                          - identifier: devhelloworld3dockerregistry
+                          - identifier: devhelloworld2dockerregistry
                             type: DockerRegistry
                             spec:
                               tag: br_snapshot
