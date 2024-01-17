@@ -12,10 +12,6 @@ pipeline:
         type: Deployment
         spec:
           deploymentType: Kubernetes
-          services:
-            values: <+input>
-            metadata:
-              parallel: true
           environments:
             metadata:
               parallel: true
@@ -42,6 +38,9 @@ pipeline:
                   timeout: 10m
                   spec:
                     pruningEnabled: false
+          service:
+            serviceRef: <+input>
+            serviceInputs: <+input>
         tags: {}
         failureStrategies:
           - onFailure:
