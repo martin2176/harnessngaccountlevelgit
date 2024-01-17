@@ -1,0 +1,51 @@
+pipeline:
+  name: k8sdeployment-to-prod-and-dr-namespaces
+  identifier: k8sdeploymenttoprodanddrnamespaces
+  projectIdentifier: tifservices
+  orgIdentifier: tif
+  tags: {}
+  stages:
+    - stage:
+        name: k8sdeployment
+        identifier: k8sdeployment
+        description: ""
+        type: Deployment
+        spec:
+          deploymentType: Kubernetes
+          services:
+            values: <+input>
+            metadata:
+              parallel: false
+          environments:
+            metadata:
+              parallel: true
+            values:
+              - environmentRef: aksprod
+                deployToAll: false
+                infrastructureDefinitions:
+                  - identifier: prodnamespace
+          execution:
+            steps:
+              - step:
+                  name: k8srolloutdeployment
+                  identifier: k8srolloutdeployment
+                  type: K8sRollingDeploy
+                  timeout: 3m
+                  spec:
+                    skipDryRun: false
+                    pruningEnabled: false
+            rollbackSteps:
+              - step:
+                  name: Rollback Rollout Deployment
+                  identifier: rollbackRolloutDeployment
+                  type: K8sRollingRollback
+                  timeout: 10m
+                  spec:
+                    pruningEnabled: false
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
