@@ -182,7 +182,7 @@ pipeline:
                 type: StageRollback
         when:
           pipelineStatus: Success
-          condition: <+env.env.identifier> == "aksprod"
+          condition: <+env.identifier> == "aksprod"
   variables:
     - name: envname
       type: String
