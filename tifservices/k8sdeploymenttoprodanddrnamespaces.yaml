@@ -111,6 +111,9 @@ pipeline:
                           echo <+pipeline.stages.k8sdeployment_0.spec.infrastructure.output.environment.environmentRef>
                           echo <+service.identifier>.<+infra.namespace>.svc.cluster.local
                           host <+service.identifier>.<+infra.namespace>.svc.cluster.local
+
+                          echo <+serviceVariables.healthcheckport>
+                          echo <+serviceVariables.healthcheckuri>
                     environmentVariables: []
                     outputVariables: []
                   timeout: 30s
