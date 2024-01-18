@@ -133,6 +133,53 @@ pipeline:
                       type: MarkAsFailure
         when:
           pipelineStatus: Success
+          condition: "false"
+    - stage:
+        name: Test Stage
+        identifier: Test_Stage
+        description: ""
+        type: Deployment
+        spec:
+          deploymentType: Kubernetes
+          services:
+            useFromStage:
+              stage: k8sdeployment
+            metadata:
+              parallel: true
+          environment:
+            environmentRef: aksprod
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: prodnamespace
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: ShellScript_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: |
+                          echo <+env.name>
+                          echo <+pipeline.variables.envname>
+                          echo <+pipeline.stages.k8sdeployment.variables.environment>
+                          echo <+pipeline.stages.k8sdeployment_0.spec.infrastructure.envRef>
+                          echo <+pipeline.stages.k8sdeployment_0.spec.infrastructure.output.environment.environmentRef>
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 30s
+            rollbackSteps: []
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
   variables:
     - name: envname
       type: String
