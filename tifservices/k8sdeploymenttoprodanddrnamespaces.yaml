@@ -78,74 +78,12 @@ pipeline:
             required: false
             value: <+env.identifier>
     - stage:
-        name: Test Deployment
-        identifier: Test_Deployment
-        description: ""
-        type: Custom
-        spec:
-          execution:
-            steps:
-              - step:
-                  type: ShellScript
-                  name: ShellScript_1
-                  identifier: ShellScript_1
-                  spec:
-                    shell: Bash
-                    executionTarget: {}
-                    source:
-                      type: Inline
-                      spec:
-                        script: |-
-                          echo <+service.identifier>.<+infra.namespace>.svc.cluster.local
-                          echo "<+service.identifier>.<+infra.namespace>.svc.cluster.local"
-
-                          echo <+pipeline.stages.k8sdeployment.variables.environment>
-
-                          echo <+pipeline.stages.k8sdeployment.spec.env.identifier>
-                          echo <+pipeline.variables.envname>
-                    environmentVariables: []
-                    outputVariables: []
-                  timeout: 30s
-              - step:
-                  name: Test-k8s-Service-DNS-Name
-                  identifier: Testk8sServiceDNSName
-                  template:
-                    templateRef: TestDNSName
-                    versionLabel: v1
-                    templateInputs:
-                      type: ShellScript
-                      spec:
-                        environmentVariables:
-                          - name: dnsname
-                            type: String
-                            value: <+service.identifier>.<+infra.namespace>.svc.cluster.local
-        tags: {}
-        failureStrategies:
-          - onFailure:
-              errors:
-                - AllErrors
-              action:
-                type: ManualIntervention
-                spec:
-                  timeout: 1h
-                  onTimeout:
-                    action:
-                      type: MarkAsFailure
-        when:
-          pipelineStatus: Success
-          condition: "false"
-    - stage:
         name: Test Stage
         identifier: Test_Stage
         description: ""
         type: Deployment
         spec:
           deploymentType: Kubernetes
-          services:
-            useFromStage:
-              stage: k8sdeployment
-            metadata:
-              parallel: true
           environment:
             environmentRef: aksprod
             deployToAll: false
@@ -163,16 +101,36 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: |
+                        script: |-
                           echo <+env.name>
                           echo <+pipeline.variables.envname>
                           echo <+pipeline.stages.k8sdeployment.variables.environment>
                           echo <+pipeline.stages.k8sdeployment_0.spec.infrastructure.envRef>
                           echo <+pipeline.stages.k8sdeployment_0.spec.infrastructure.output.environment.environmentRef>
+                          echo <+service.identifier>.<+infra.namespace>.svc.cluster.local
+                          host <+service.identifier>.<+infra.namespace>.svc.cluster.local
                     environmentVariables: []
                     outputVariables: []
                   timeout: 30s
+              - step:
+                  name: Test k8s service DNS name
+                  identifier: Test_k8s_service_DNS_name
+                  template:
+                    templateRef: TestDNSName
+                    versionLabel: v1
+                    templateInputs:
+                      type: ShellScript
+                      spec:
+                        environmentVariables:
+                          - name: dnsname
+                            type: String
+                            value: <+service.identifier>.<+infra.namespace>.svc.cluster.local
             rollbackSteps: []
+          services:
+            useFromStage:
+              stage: k8sdeployment
+            metadata:
+              parallel: true
         tags: {}
         failureStrategies:
           - onFailure:
