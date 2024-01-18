@@ -53,3 +53,52 @@ pipeline:
                 - AllErrors
               action:
                 type: StageRollback
+    - stage:
+        name: Test Deployment
+        identifier: Test_Deployment
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: ShellScript_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: |-
+                          echo <+service.identifier>.<+infra.namespace>.svc.cluster.local
+                          echo "<+service.identifier>.<+infra.namespace>.svc.cluster.local"
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 30s
+              - step:
+                  name: Test-k8s-Service-DNS-Name
+                  identifier: Testk8sServiceDNSName
+                  template:
+                    templateRef: TestDNSName
+                    versionLabel: v1
+                    templateInputs:
+                      type: ShellScript
+                      spec:
+                        environmentVariables:
+                          - name: dnsname
+                            type: String
+                            value: <+service.identifier>.<+infra.namespace>.svc.cluster.local
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: ManualIntervention
+                spec:
+                  timeout: 1h
+                  onTimeout:
+                    action:
+                      type: MarkAsFailure
