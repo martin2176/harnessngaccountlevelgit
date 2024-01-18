@@ -180,6 +180,9 @@ pipeline:
                 - AllErrors
               action:
                 type: StageRollback
+        when:
+          pipelineStatus: Success
+          condition: <+env.env.identifier> == "aksprod"
   variables:
     - name: envname
       type: String
