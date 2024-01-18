@@ -103,6 +103,8 @@ pipeline:
                       spec:
                         script: |-
                           echo <+env.name>
+
+                          echo <+env.identifier>
                           echo <+pipeline.variables.envname>
                           echo <+pipeline.stages.k8sdeployment.variables.environment>
                           echo <+pipeline.stages.k8sdeployment_0.spec.infrastructure.envRef>
