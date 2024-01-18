@@ -39,6 +39,8 @@ pipeline:
                         script: |-
                           echo <+pipeline.stages.k8sdeployment.variables.environment>
                           echo <+stage.variables.environment>
+                          echo <+env.identifier>
+                          echo <+pipeline.variables.envname>
                     environmentVariables: []
                     outputVariables: []
                   timeout: 30s
@@ -98,6 +100,9 @@ pipeline:
                           echo "<+service.identifier>.<+infra.namespace>.svc.cluster.local"
 
                           echo <+pipeline.stages.k8sdeployment.variables.environment>
+
+                          echo <+pipeline.stages.k8sdeployment.spec.env.identifier>
+                          echo <+pipeline.variables.envname>
                     environmentVariables: []
                     outputVariables: []
                   timeout: 30s
@@ -128,4 +133,9 @@ pipeline:
                       type: MarkAsFailure
         when:
           pipelineStatus: Success
-          condition: <+pipeline.stages.k8sdeployment.variables.environment> == "aksprod"
+  variables:
+    - name: envname
+      type: String
+      description: Environment name variable created from the env the pipeline runs against
+      required: false
+      value: <+env.identifier>
