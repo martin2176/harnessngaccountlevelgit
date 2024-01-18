@@ -127,6 +127,18 @@ pipeline:
                           - name: dnsname
                             type: String
                             value: <+service.identifier>.<+infra.namespace>.svc.cluster.local
+              - step:
+                  type: Http
+                  name: Test k8 service HTTP
+                  identifier: Test_k8_service_HTTP
+                  spec:
+                    url: http://<+service.identifier>.<+infra.namespace>.svc.cluster.local:5000
+                    method: GET
+                    headers: []
+                    inputVariables: []
+                    outputVariables: []
+                    assertion: <+httpResponseCode> == 200
+                  timeout: 30s
             rollbackSteps: []
           services:
             useFromStage:
