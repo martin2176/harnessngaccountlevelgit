@@ -40,7 +40,7 @@ template:
       outputVariables:
         - name: dnsteststatus
           type: String
-          value: "0"
+          value: dnsteststatus
     failureStrategies:
       - onFailure:
           errors:
