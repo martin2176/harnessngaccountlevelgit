@@ -102,3 +102,6 @@ pipeline:
                   onTimeout:
                     action:
                       type: MarkAsFailure
+        when:
+          pipelineStatus: Success
+          condition: <+env.identifier> == "aksprod"
