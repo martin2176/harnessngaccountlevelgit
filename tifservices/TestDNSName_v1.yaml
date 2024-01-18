@@ -36,7 +36,7 @@ template:
       environmentVariables:
         - name: dnsname
           type: String
-          value: <+service.identifier>.<+infra.namespace>.svc.cluster.local
+          value: <+input>
       outputVariables:
         - name: dnsteststatus
           type: String
