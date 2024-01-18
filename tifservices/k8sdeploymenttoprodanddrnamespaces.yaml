@@ -53,6 +53,12 @@ pipeline:
                 - AllErrors
               action:
                 type: StageRollback
+        variables:
+          - name: environment
+            type: String
+            description: Environment name variable created from the env the pipeline runs against
+            required: false
+            value: <+env.identifier>
     - stage:
         name: Test Deployment
         identifier: Test_Deployment
@@ -104,4 +110,4 @@ pipeline:
                       type: MarkAsFailure
         when:
           pipelineStatus: Success
-          condition: <+env.identifier> == "aksprod"
+          condition: <+pipeline.stages.k8sdeployment.variables.environment> == "aksprod"
