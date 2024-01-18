@@ -132,7 +132,7 @@ pipeline:
                   name: Test k8 service HTTP
                   identifier: Test_k8_service_HTTP
                   spec:
-                    url: http://<+service.identifier>.<+infra.namespace>.svc.cluster.local:5000
+                    url: http://<+service.identifier>.<+infra.namespace>.svc.cluster.local:5000/hello
                     method: GET
                     headers: []
                     inputVariables: []
