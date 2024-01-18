@@ -41,3 +41,21 @@ template:
         - name: dnsteststatus
           type: String
           value: "0"
+    failureStrategies:
+      - onFailure:
+          errors:
+            - AllErrors
+          action:
+            type: Retry
+            spec:
+              retryCount: 1
+              retryIntervals:
+                - 5s
+              onRetryFailure:
+                action:
+                  type: ManualIntervention
+                  spec:
+                    timeout: 1h
+                    onTimeout:
+                      action:
+                        type: MarkAsSuccess
