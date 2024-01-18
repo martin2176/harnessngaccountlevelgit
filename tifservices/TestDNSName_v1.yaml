@@ -36,7 +36,7 @@ template:
       environmentVariables:
         - name: dnsname
           type: String
-          value: <+input>
+          value: ""
       outputVariables:
         - name: dnsteststatus
           type: String
