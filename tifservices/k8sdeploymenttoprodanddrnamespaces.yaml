@@ -27,6 +27,22 @@ pipeline:
           execution:
             steps:
               - step:
+                  type: ShellScript
+                  name: ShellScript_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: |-
+                          echo <+pipeline.stages.k8sdeployment.variables.environment>
+                          echo <+stage.variables.environment>
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 30s
+              - step:
                   name: k8srolloutdeployment
                   identifier: k8srolloutdeployment
                   type: K8sRollingDeploy
@@ -80,6 +96,8 @@ pipeline:
                         script: |-
                           echo <+service.identifier>.<+infra.namespace>.svc.cluster.local
                           echo "<+service.identifier>.<+infra.namespace>.svc.cluster.local"
+
+                          echo <+pipeline.stages.k8sdeployment.variables.environment>
                     environmentVariables: []
                     outputVariables: []
                   timeout: 30s
