@@ -147,7 +147,7 @@ pipeline:
                   name: Test Istio Ingress mTLS HTTPS
                   identifier: Test_Istio_Ingress_mTLS_HTTPS
                   spec:
-                    url: https://mtls.tif.feiaz.ferguson.com/hello
+                    url: https://<+serviceVariables.mtlsfqdn>/<+serviceVariables.mtlsuri>
                     method: GET
                     headers: []
                     inputVariables: []
