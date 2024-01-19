@@ -153,6 +153,8 @@ pipeline:
                     inputVariables: []
                     outputVariables: []
                     assertion: <+httpResponseCode> == 200
+                    certificate: <+secrets.getValue("mtlsclientcertificate")>
+                    certificateKey: <+secrets.getValue("mtlsclientkey")>
                   timeout: 10s
             rollbackSteps: []
           services:
