@@ -41,7 +41,7 @@ template:
             }]
             }
             EOF
-            WEBHOOKURL="<+secrets.getValue(<+spec.environmentVariables.webhookurl>)>""
+            WEBHOOKURL="<+secrets.getValue(<+spec.environmentVariables.webhookurl>)>"
             echo "$WEBHOOKURL" > /tmp/1
             curl --silent --location --request POST "$WEBHOOKURL" \
             --header 'Content-Type: application/json' \
