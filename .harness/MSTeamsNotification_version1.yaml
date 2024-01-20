@@ -22,7 +22,7 @@ template:
       source:
         type: Inline
         spec:
-          script: |-
+          script: |+
             cat <<EOF > /tmp/<+pipeline.executionId>.json
             {
             "@type": "MessageCard",
@@ -43,12 +43,14 @@ template:
             EOF
             echo "------------------"
             echo "webhookurl is: $webhookurl"
-            expression="\"<+secrets.getValue("msteamswebhookapprovaldemochannel")>\""
 
-            echo $expression
-            echo 
-            echo "----------AAAAAAAAAAAAAA--------"
-            echo "<+secrets.getValue("msteamswebhookapprovaldemochannel")>"
+
+            <+secrets.getValue(<+spec.environmentVariables.webhookurl>)>
+
+            echo <+secrets.getValue(<+spec.environmentVariables.webhookurl>)> > /tmp/1
+
+
+
       environmentVariables:
         - name: title
           type: String
