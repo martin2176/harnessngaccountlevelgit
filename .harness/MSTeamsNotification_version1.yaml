@@ -45,7 +45,7 @@ template:
             echo "webhookurl is: $webhookurl"
             echo "------------------"
             #WEBHOOKURL="<+secrets.getValue("$webhookurl")>"
-            echo "$WEBHOOKURL"
+            #echo "$WEBHOOKURL"
             echo "------------------"
             echo "<+secrets.getValue("msteamswebhookapprovaldemochannel")>"
             echo "------------------"
