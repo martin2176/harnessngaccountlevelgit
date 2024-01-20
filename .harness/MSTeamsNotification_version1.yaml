@@ -22,7 +22,7 @@ template:
       source:
         type: Inline
         spec:
-          script: |+
+          script: |-
             cat <<EOF > /tmp/<+pipeline.executionId>.json
             {
             "@type": "MessageCard",
@@ -48,7 +48,6 @@ template:
 
             echo "------------------"
             echo "<+secrets.getValue("msteamswebhookapprovaldemochannel")>"
-
       environmentVariables:
         - name: title
           type: String
