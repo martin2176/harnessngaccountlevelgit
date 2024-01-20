@@ -43,7 +43,8 @@ template:
             EOF
             echo "------------------"
             echo "webhookurl is: $webhookurl"
-            "<+secrets.getValue(\"$webhookurl\")>"
+            "\"<+secrets.getValue(\"$webhookurl\")>\""
+            echo 
             echo "----------AAAAAAAAAAAAAA--------"
             echo "<+secrets.getValue("msteamswebhookapprovaldemochannel")>"
       environmentVariables:
