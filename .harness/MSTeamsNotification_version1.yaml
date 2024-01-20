@@ -42,7 +42,7 @@ template:
             }
             EOF
 
-            WEBHOOKURL="<+secrets.getValue("<+pipeline.variables.webhookurl>")>"
+            WEBHOOKURL="<+secrets.getValue(webhookurl)>"
             echo "$WEBHOOKURL"
 
             curl --silent --location --request POST "$WEBHOOKURL" \
