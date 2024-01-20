@@ -41,10 +41,14 @@ template:
             }]
             }
             EOF
-
-            WEBHOOKURL="<+secrets.getValue(webhookurl)>"
+            echo "------------------"
+            echo "webhookurl is: $webhookurl"
             echo "$WEBHOOKURL"
-
+            echo "------------------"
+            WEBHOOKURL="<+secrets.getValue(webhookurl)>"
+            echo "------------------"
+            echo "<+secrets.getValue(msteamswebhookapprovaldemochannel)>"
+            echo "------------------"
             curl --silent --location --request POST "$WEBHOOKURL" \
             --header 'Content-Type: application/json' \
             --data @/tmp/<+pipeline.executionId>.json
