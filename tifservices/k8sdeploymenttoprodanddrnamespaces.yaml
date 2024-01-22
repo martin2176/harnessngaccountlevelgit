@@ -52,6 +52,22 @@ pipeline:
                   spec: {}
                   timeout: 1m
               - step:
+                  type: ShellScript
+                  name: ShellScript_2
+                  identifier: ShellScript_2
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: |-
+                          echo "<+pipeline.stages.<+stage.identifier>.spec.execution.steps.k8sdryrun.k8s.manifestDryRun>"
+                          echo "<+stage.identifier>"
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+              - step:
                   name: k8srolloutdeployment
                   identifier: k8srolloutdeployment
                   type: K8sRollingDeploy
