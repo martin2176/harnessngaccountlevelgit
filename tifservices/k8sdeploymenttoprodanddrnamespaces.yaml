@@ -53,7 +53,7 @@ pipeline:
                   timeout: 1m
               - step:
                   type: ShellScript
-                  name: ShellScript_2
+                  name: copy k8sdryrun file
                   identifier: ShellScript_2
                   spec:
                     shell: Bash
@@ -76,7 +76,7 @@ pipeline:
                           cat $PREVIEWFILE
                     environmentVariables: []
                     outputVariables: []
-                  timeout: 10m
+                  timeout: 1m
               - step:
                   name: k8srolloutdeployment
                   identifier: k8srolloutdeployment
