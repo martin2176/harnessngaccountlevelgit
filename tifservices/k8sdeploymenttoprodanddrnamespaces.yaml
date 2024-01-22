@@ -41,6 +41,7 @@ pipeline:
                           echo <+stage.variables.environment>
                           echo <+env.identifier>
                           echo <+pipeline.variables.envname>
+                          echo <+stage.identifier>
                     environmentVariables: []
                     outputVariables: []
                   timeout: 30s
