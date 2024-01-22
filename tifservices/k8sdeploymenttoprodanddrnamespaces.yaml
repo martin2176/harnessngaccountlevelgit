@@ -45,11 +45,11 @@ pipeline:
                     outputVariables: []
                   timeout: 30s
               - step:
-                  name: post k8sdryrun to git
-                  identifier: post_k8sdryrun_to_git
-                  template:
-                    templateRef: Post_Anything_to_Git
-                    versionLabel: version1
+                  type: K8sDryRun
+                  name: k8sdryrun
+                  identifier: k8sdryrun
+                  spec: {}
+                  timeout: 1m
               - step:
                   name: k8srolloutdeployment
                   identifier: k8srolloutdeployment
