@@ -112,6 +112,21 @@ pipeline:
             required: false
             value: <+env.identifier>
     - stage:
+        name: Post K8s DryRun to Git
+        identifier: Post_K8s_DryRun_to_Git
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: post k8s dryrun to git
+                  identifier: post_k8s_dryrun_to_git
+                  template:
+                    templateRef: Post_Anything_to_Git
+                    versionLabel: version2
+        tags: {}
+    - stage:
         name: Test Stage
         identifier: Test_Stage
         description: ""
