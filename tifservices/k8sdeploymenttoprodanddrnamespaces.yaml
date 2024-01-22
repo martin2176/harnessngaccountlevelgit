@@ -64,7 +64,7 @@ pipeline:
                         script: |-
                           PREVIEWDIR="/tmp/k8syamlpreview-<+pipeline.executionId>/"
                           mkdir -p $PREVIEWDIR
-                          PREVIEWFILE="$PREVIEWDIR/<+stage.identifier>"
+                          PREVIEWFILE="$PREVIEWDIR/k8syamlpreview-<+pipeline.executionId>-<+stage.identifier>"
 
                           cat << EOM > $PREVIEWFILE
                           # pipeline triggered by: <+pipeline.triggeredBy.name>
