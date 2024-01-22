@@ -69,7 +69,8 @@ pipeline:
                           cat << EOM > $PREVIEWFILE
                           # pipeline triggered by: <+pipeline.triggeredBy.name>
                           # pipeline triggered by email: <+pipeline.triggeredBy.email> (This returns NULL if the pipeline is triggered using a webhook)
-                          # pipeline ID: <+pipeline.executionId>
+                          # pipeline execution ID: <+pipeline.executionId>
+                          # pipeline Name: <+pipeline.name>
                           # pipeline Stage ID: <+stage.identifier>
                           <+pipeline.stages.<+stage.identifier>.spec.execution.steps.k8sdryrun.k8s.manifestDryRun>
                           EOM
