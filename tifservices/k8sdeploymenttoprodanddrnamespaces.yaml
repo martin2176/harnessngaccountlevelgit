@@ -62,8 +62,18 @@ pipeline:
                       type: Inline
                       spec:
                         script: |-
-                          echo "<+pipeline.stages.<+stage.identifier>.spec.execution.steps.k8sdryrun.k8s.manifestDryRun>"
-                          echo "<+stage.identifier>"
+                          PREVIEWDIR="/tmp/k8syamlpreview-<+pipeline.executionId>/"
+                          mkdir -p $PREVIEWDIR
+                          PREVIEWFILE="$PREVIEWDIR/<+stage.identifier>"
+
+                          cat << EOM > $PREVIEWFILE
+                          # pipeline triggered by: <+pipeline.triggeredBy.name>
+                          # pipeline triggered by email: <+pipeline.triggeredBy.email> (This returns NULL if the pipeline is triggered using a webhook)
+                          # pipeline ID: <+pipeline.executionId>
+                          # pipeline Stage ID: <+stage.identifier>
+                          <+pipeline.stages.<+stage.identifier>.spec.execution.steps.k8sdryrun.k8s.manifestDryRun>
+                          EOM
+                          cat $PREVIEWFILE
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
