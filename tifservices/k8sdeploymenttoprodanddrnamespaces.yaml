@@ -15,8 +15,7 @@ pipeline:
           environments:
             metadata:
               parallel: true
-              parallelism: 10
-              maxConcurrency: 5
+              maxConcurrency: 2
             values:
               - environmentRef: aksprod
                 deployToAll: false
