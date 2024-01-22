@@ -15,6 +15,7 @@ pipeline:
           environments:
             metadata:
               parallel: true
+              parallelism: 10
             values:
               - environmentRef: aksprod
                 deployToAll: false
