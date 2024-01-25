@@ -214,10 +214,4 @@ pipeline:
                 type: StageRollback
         when:
           pipelineStatus: Success
-  variables:
-    - name: envname
-      type: String
-      description: Environment name variable created from the env the pipeline runs against
-      required: false
-      value: <+env.identifier>
   allowStageExecutions: false
