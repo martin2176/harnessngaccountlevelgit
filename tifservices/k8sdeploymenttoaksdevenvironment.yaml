@@ -46,8 +46,7 @@ pipeline:
           environment:
             environmentRef: aksdev
             deployToAll: false
-            infrastructureDefinitions:
-              - identifier: intbranch
+            infrastructureDefinitions: <+input>
         tags: {}
         failureStrategies:
           - onFailure:
