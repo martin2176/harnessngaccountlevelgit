@@ -120,6 +120,8 @@ pipeline:
                     templateRef: Post_Anything_to_Git
                     versionLabel: version2
         tags: {}
+        when:
+          pipelineStatus: Success
     - stage:
         name: Test Stage
         identifier: Test_Stage
