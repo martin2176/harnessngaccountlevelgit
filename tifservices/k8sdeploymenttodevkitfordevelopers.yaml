@@ -1,0 +1,47 @@
+pipeline:
+  name: k8sdeployment-to-devkit-for-developers
+  identifier: k8sdeploymenttodevkitfordevelopers
+  projectIdentifier: tifservices
+  orgIdentifier: tif
+  tags: {}
+  stages:
+    - stage:
+        name: k8sdeployment
+        identifier: k8sdeployment
+        description: ""
+        type: Deployment
+        spec:
+          deploymentType: Kubernetes
+          service:
+            serviceRef: <+input>
+            serviceInputs: <+input>
+          environment:
+            environmentRef: dev_kit_for_developers
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: <+pipeline.triggeredBy.name>
+          execution:
+            steps:
+              - step:
+                  name: Rollout Deployment
+                  identifier: rolloutDeployment
+                  type: K8sRollingDeploy
+                  timeout: 10m
+                  spec:
+                    skipDryRun: false
+                    pruningEnabled: false
+            rollbackSteps:
+              - step:
+                  name: Rollback Rollout Deployment
+                  identifier: rollbackRolloutDeployment
+                  type: K8sRollingRollback
+                  timeout: 10m
+                  spec:
+                    pruningEnabled: false
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
