@@ -12,9 +12,6 @@ pipeline:
         type: Deployment
         spec:
           deploymentType: Kubernetes
-          service:
-            serviceRef: <+input>
-            serviceInputs: <+input>
           environment:
             environmentRef: dev_kit_for_developers
             deployToAll: false
@@ -38,6 +35,10 @@ pipeline:
                   timeout: 10m
                   spec:
                     pruningEnabled: false
+          services:
+            values: <+input>
+            metadata:
+              parallel: true
         tags: {}
         failureStrategies:
           - onFailure:
