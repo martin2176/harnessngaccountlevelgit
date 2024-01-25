@@ -44,8 +44,10 @@ pipeline:
                   spec:
                     pruningEnabled: false
           environment:
-            environmentRef: aksdev
+            environmentRef: <+input>
             deployToAll: false
+            environmentInputs: <+input>
+            serviceOverrideInputs: <+input>
             infrastructureDefinitions: <+input>
         tags: {}
         failureStrategies:
