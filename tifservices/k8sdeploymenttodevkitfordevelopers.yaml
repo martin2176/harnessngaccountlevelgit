@@ -16,7 +16,7 @@ pipeline:
             environmentRef: dev_kit_for_developers
             deployToAll: false
             infrastructureDefinitions:
-              - identifier: "\"<+pipeline.triggeredBy.email.replace(\"@\",\"_\").replace(\".\",\"_\")>\""
+              - identifier: <+pipeline.triggeredBy.email.replace("@","_").replace(".","_")>
           execution:
             steps:
               - step:
