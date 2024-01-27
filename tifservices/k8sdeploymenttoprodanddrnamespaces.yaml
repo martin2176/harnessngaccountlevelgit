@@ -123,7 +123,7 @@ pipeline:
         when:
           pipelineStatus: Success
     - stage:
-        name: Test Stage
+        name: Test K8s Service and Istio Ingress
         identifier: Test_Stage
         description: ""
         type: Deployment
@@ -216,4 +216,30 @@ pipeline:
                 type: StageRollback
         when:
           pipelineStatus: Success
+    - stage:
+        name: Test Apigee Proxy
+        identifier: Test_Apigee_Proxy
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: Http
+                  name: Test Apigee Proxy
+                  identifier: Test_Apigee_Proxy
+                  spec:
+                    url: https://martin2176-eval-prod.apigee.net/hello
+                    method: GET
+                    headers: []
+                    inputVariables: []
+                    outputVariables: []
+                  timeout: 30s
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: ManualIntervention
   allowStageExecutions: false
