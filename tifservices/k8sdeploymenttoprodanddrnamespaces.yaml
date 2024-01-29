@@ -260,5 +260,5 @@ pipeline:
               errors:
                 - AllErrors
               action:
-                type: ManualIntervention
+                type: Ignore
   allowStageExecutions: false
