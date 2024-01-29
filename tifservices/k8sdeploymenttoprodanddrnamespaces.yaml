@@ -237,9 +237,12 @@ pipeline:
                   spec:
                     url: https://martin2176-eval-prod.apigee.net/hello
                     method: GET
-                    headers: []
+                    headers:
+                      - key: Authorization
+                        value: Bearer <+execution.steps.GetApigeeAccessToken.output.outputVariables.access_token>
                     inputVariables: []
                     outputVariables: []
+                    assertion: <+httpResponseCode> == 200
                   timeout: 30s
         tags: {}
         failureStrategies:
