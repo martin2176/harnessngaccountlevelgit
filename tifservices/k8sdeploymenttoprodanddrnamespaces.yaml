@@ -249,6 +249,11 @@ pipeline:
                     outputVariables: []
                     assertion: <+httpResponseCode> == 200
                   timeout: 30s
+          environment:
+            environmentRef: aksprod
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: prodnamespace
         tags: {}
         failureStrategies:
           - onFailure:
