@@ -260,5 +260,10 @@ pipeline:
               errors:
                 - AllErrors
               action:
-                type: Ignore
+                type: ManualIntervention
+                spec:
+                  timeout: 1d
+                  onTimeout:
+                    action:
+                      type: MarkAsFailure
   allowStageExecutions: false
