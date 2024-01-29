@@ -225,6 +225,12 @@ pipeline:
           execution:
             steps:
               - step:
+                  name: Get-Apigee-Access-Token
+                  identifier: GetApigeeAccessToken
+                  template:
+                    templateRef: Apigeeaccesstokenrequest
+                    versionLabel: version1
+              - step:
                   type: Http
                   name: Test Apigee Proxy
                   identifier: Test_Apigee_Proxy
