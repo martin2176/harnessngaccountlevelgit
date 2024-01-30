@@ -13,15 +13,7 @@ pipeline:
         spec:
           deploymentType: Kubernetes
           service:
-            serviceRef: helloworld
-            serviceInputs:
-              serviceDefinition:
-                type: Kubernetes
-                spec:
-                  artifacts:
-                    primary:
-                      primaryArtifactRef: <+input>
-                      sources: <+input>
+            serviceRef: istiotlscert
           environment:
             environmentRef: org.prod
             deployToAll: false
