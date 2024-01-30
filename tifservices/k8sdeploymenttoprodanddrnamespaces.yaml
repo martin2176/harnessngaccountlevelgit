@@ -222,15 +222,21 @@ pipeline:
           pipelineStatus: Success
           condition: "false"
     - stage:
-        name: Test Apigee Proxy
-        identifier: Test_Apigee_Proxy
+        name: Test ApigeeProxy
+        identifier: Test_ApigeeProxy
         description: ""
-        type: Custom
+        type: Deployment
         spec:
+          deploymentType: Kubernetes
+          environment:
+            environmentRef: aksprod
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: prodnamespace
           execution:
             steps:
               - step:
-                  name: Get-Apigee-Access-Token
+                  name: Get-Apigee-AccessToken
                   identifier: GetApigeeAccessToken
                   template:
                     templateRef: Apigeeaccesstokenrequest
@@ -240,7 +246,7 @@ pipeline:
                   name: Test Apigee Proxy
                   identifier: Test_Apigee_Proxy
                   spec:
-                    url: https://martin2176-eval-prod.apigee.net/hello
+                    url: https://<+serviceVariables.apigeeproxyfqdn>/<+serviceVariables.mtlsuri>
                     method: GET
                     headers:
                       - key: Authorization
@@ -249,21 +255,17 @@ pipeline:
                     outputVariables: []
                     assertion: <+httpResponseCode> == 200
                   timeout: 30s
-          environment:
-            environmentRef: aksprod
-            deployToAll: false
-            infrastructureDefinitions:
-              - identifier: prodnamespace
+            rollbackSteps: []
+          services:
+            useFromStage:
+              stage: k8sdeployment
+            metadata:
+              parallel: true
         tags: {}
         failureStrategies:
           - onFailure:
               errors:
                 - AllErrors
               action:
-                type: ManualIntervention
-                spec:
-                  timeout: 1d
-                  onTimeout:
-                    action:
-                      type: MarkAsFailure
+                type: StageRollback
   allowStageExecutions: false
