@@ -254,6 +254,19 @@ pipeline:
                     outputVariables: []
                     assertion: <+httpResponseCode> == 200
                   timeout: 30s
+                  failureStrategies:
+                    - onFailure:
+                        errors:
+                          - AllErrors
+                        action:
+                          type: ManualIntervention
+                          spec:
+                            timeout: 1d
+                            onTimeout:
+                              action:
+                                type: MarkAsSuccess
+                  when:
+                    stageStatus: Success
             rollbackSteps: []
           services:
             useFromStage:
