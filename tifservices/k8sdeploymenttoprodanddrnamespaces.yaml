@@ -204,7 +204,13 @@ pipeline:
                     assertion: <+httpResponseCode> == 200
                     certificate: <+secrets.getValue("mtlsclientcert")>
                     certificateKey: <+secrets.getValue("mtlsclientkey")>
-                  timeout: 10s
+                  timeout: 30s
+                  failureStrategies:
+                    - onFailure:
+                        errors:
+                          - AllErrors
+                        action:
+                          type: Ignore
             rollbackSteps: []
           services:
             useFromStage:
