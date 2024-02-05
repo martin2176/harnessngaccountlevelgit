@@ -109,52 +109,6 @@ pipeline:
           pipelineStatus: Success
           condition: "false"
     - stage:
-        name: tets
-        identifier: tets
-        description: ""
-        type: Deployment
-        spec:
-          deploymentType: Kubernetes
-          environment:
-            environmentRef: aksprod
-            deployToAll: false
-            infrastructureDefinitions:
-              - identifier: prodnamespace
-          execution:
-            steps:
-              - step:
-                  type: ShellScript
-                  name: ShellScript_1
-                  identifier: ShellScript_1
-                  spec:
-                    shell: Bash
-                    executionTarget: {}
-                    source:
-                      type: Inline
-                      spec:
-                        script: |-
-                          echo <+serviceVariables.remindermessage>
-                          echo '<+serviceVariables.remindermessage>'
-
-                          echo <+configFile.getAsBase64("xmlforrendering")>
-                          echo '<+configFile.getAsBase64("xmlforrendering")>'
-                    environmentVariables: []
-                    outputVariables: []
-                  timeout: 1m
-            rollbackSteps: []
-          services:
-            useFromStage:
-              stage: k8sdeployment
-            metadata:
-              parallel: true
-        tags: {}
-        failureStrategies:
-          - onFailure:
-              errors:
-                - AllErrors
-              action:
-                type: StageRollback
-    - stage:
         name: Post K8s DryRun to Git
         identifier: Post_K8s_DryRun_to_Git
         description: ""
