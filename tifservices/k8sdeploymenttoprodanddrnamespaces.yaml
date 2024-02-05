@@ -115,20 +115,6 @@ pipeline:
         type: Deployment
         spec:
           deploymentType: Kubernetes
-          service:
-            serviceRef: helloworld2
-            serviceInputs:
-              serviceDefinition:
-                type: Kubernetes
-                spec:
-                  artifacts:
-                    primary:
-                      primaryArtifactRef: <+input>
-                      sources: <+input>
-                  variables:
-                    - name: remindermessage
-                      type: String
-                      value: <+input>
           environment:
             environmentRef: aksprod
             deployToAll: false
@@ -156,6 +142,11 @@ pipeline:
                     outputVariables: []
                   timeout: 1m
             rollbackSteps: []
+          services:
+            useFromStage:
+              stage: k8sdeployment
+            metadata:
+              parallel: true
         tags: {}
         failureStrategies:
           - onFailure:
