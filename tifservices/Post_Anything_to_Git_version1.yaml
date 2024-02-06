@@ -20,7 +20,7 @@ template:
           script: "PREVIEWDIR=\"/tmp/preview\"\nmkdir -p $PREVIEWDIR\nGITREPO=\"harness-k8syaml-preview\"\ncd $PREVIEWDIR\n\nif [ -e $PREVIEWDIR/$GITREPO/.git/config ]\nthen\n    echo \"Git Configuration Already existing. Hence not cloning repo\"\n    cd $PREVIEWDIR/$GITREPO\n    git config pull.rebase false\n    git pull\nelse\n    echo \"Git Configuration does not exist. Hence cloning repo\"\n\t  git clone https://github.com/martin2176/${GITREPO}\nfi\n\ncd $PREVIEWDIR/$GITREPO\ngit config user.email \"martin2176@yahoo.com\"\ngit config user.name \"martin2176@yahoo.com\"\ngit config pull.rebase false\n\ncat << EOM > k8syamlpreview-<+pipeline.executionId>.yaml\n# pipeline triggered by: <+pipeline.triggeredBy.name>\n# pipeline triggered by email: <+pipeline.triggeredBy.email> (This returns NULL if the pipeline is triggered using a webhook)\n<+pipeline.stages.helloworlddeployment.spec.execution.steps.K8sDryRun_1.k8s.manifestDryRun>\nEOM\ngit add --all\ngit commit -m \"adding k8sdryrun files for pipelineexecID <+pipeline.executionId>\"\ngit push -u https://martin2176:<+secrets.getValue(\"martin2176gittoken\")>@github.com/martin2176/${GITREPO} main\n\nK8SYAMLPREVIEW=\"https://github.com/martin2176/${GITREPO}/k8syamlpreview-<+pipeline.executionId>.yaml\""
       environmentVariables: []
       outputVariables:
-        - name: clickthislinkfordryrunpreview
+        - name: click_this_link_for_dryrunpreview
           type: String
           value: K8SYAMLPREVIEW
   description: |-
