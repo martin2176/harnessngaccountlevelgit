@@ -19,9 +19,9 @@ template:
           script: "PREVIEWDIR=\"/tmp/k8syamlpreview-<+pipeline.executionId>\"\nmkdir -p $PREVIEWDIR\nGITREPO=\"harness-k8syaml-preview\"\ncd $PREVIEWDIR\n\nif [ -e $PREVIEWDIR/$GITREPO/.git/config ]\nthen\n    echo \"Git Configuration Already existing. Hence not cloning repo\"\n    cd $PREVIEWDIR/$GITREPO\n    git config pull.rebase false\n    git pull\nelse\n    echo \"Git Configuration does not exist. Hence cloning repo\"\n\t  git clone https://github.com/martin2176/${GITREPO}\nfi\n\ncd $PREVIEWDIR/$GITREPO\ngit config user.email \"martin2176@yahoo.com\"\ngit config user.name \"martin2176@yahoo.com\"\ngit config pull.rebase false\ncp -f $PREVIEWDIR/k8syamlpreview* $PREVIEWDIR/$GITREPO/\ngit add --all\ngit commit -m \"adding k8sdryrun files for pipelineexecID <+pipeline.executionId>\"\ngit push -u https://martin2176:<+secrets.getValue(\"martin2176gittoken\")>@github.com/martin2176/${GITREPO} main\nK8SYAMLPREVIEWFILEPREFIX=\"k8syamlpreview-<+pipeline.executionId>\""
       environmentVariables: []
       outputVariables:
-        - name: click_this_link_for_dryrunpreview
+        - name: K8SYAMLPREVIEWFILEPREFIX
           type: String
-          value: K8SYAMLPREVIEW
+          value: K8SYAMLPREVIEWFILEPREFIX
   description: |-
     This template can be used to post anything to Git such as k8s dry run preview files.
     Use this for Pipelines with multiples Services and multiple Environments.
