@@ -163,6 +163,10 @@ pipeline:
 
                           echo <+serviceVariables.healthcheckport>
                           echo <+serviceVariables.healthcheckuri>
+
+                          echo <+secrets.getValue("mtlsclientcert")>
+
+                          echo <+secrets.getValue("mtlsclientkey")>
                     environmentVariables: []
                     outputVariables: []
                   timeout: 30s
