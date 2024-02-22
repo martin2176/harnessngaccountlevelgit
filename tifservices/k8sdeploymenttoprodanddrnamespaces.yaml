@@ -167,6 +167,14 @@ pipeline:
                           echo <+secrets.getValue("mtlsclientcert")>
 
                           echo <+secrets.getValue("mtlsclientkey")>
+
+
+                          echo "................mtls info....................."
+
+                          echo <+serviceVariables.mtlsfqdn>
+                          echo <+serviceVariables.mtlsuri>
+                          echo "https://<+serviceVariables.mtlsfqdn>/<+serviceVariables.mtlsuri>"
+                          echo "........................."
                     environmentVariables: []
                     outputVariables: []
                   timeout: 30s
