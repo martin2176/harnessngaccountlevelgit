@@ -147,5 +147,5 @@ pipeline:
     - name: namespace
       type: String
       description: Enter the namespace to deploy the service
-      required: true
+      required: false
       value: <+input>.allowedValues(intbranch,devbranch,atbranch)
