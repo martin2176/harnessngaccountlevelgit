@@ -61,4 +61,4 @@ pipeline:
       type: String
       description: Enter the namespace to deploy the service
       required: true
-      value: <+input>.allowedValues(dev-branch,int-branch,at-branch)
+      value: <+input>.allowedValues(dev-branch,int-branch,at-branch,intbranch,devbranch,atbranch)
