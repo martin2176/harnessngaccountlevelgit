@@ -223,19 +223,6 @@ pipeline:
                           - AllErrors
                         action:
                           type: Ignore
-              - step:
-                  type: Http
-                  name: Http_3
-                  identifier: Http_3
-                  spec:
-                    url: https://mtls.tif.feiaz.ferguson.com/hello
-                    method: GET
-                    headers: []
-                    inputVariables: []
-                    outputVariables: []
-                    certificate: <+secrets.getValue("mtlsclientcert")>
-                    certificateKey: <+secrets.getValue("mtlsclientkey")>
-                  timeout: 1m
             rollbackSteps: []
           services:
             useFromStage:
