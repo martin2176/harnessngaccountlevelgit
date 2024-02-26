@@ -52,7 +52,7 @@ pipeline:
             environmentRef: aksdev
             deployToAll: false
             infrastructureDefinitions:
-              - identifier: <+pipeline.variables.namespace>
+              - identifier: intbranch
         tags: {}
         failureStrategies:
           - onFailure:
