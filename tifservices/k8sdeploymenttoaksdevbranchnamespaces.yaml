@@ -143,9 +143,3 @@ pipeline:
                     type: StageRollback
   identifier: k8sdeploymenttoaksdevbranchnamespaces
   name: k8sdeployment-to-aksdev-branch-namespaces
-  variables:
-    - name: namespace
-      type: String
-      description: Enter the namespace to deploy the service
-      required: false
-      value: <+input>.allowedValues(intbranch,devbranch,atbranch)
