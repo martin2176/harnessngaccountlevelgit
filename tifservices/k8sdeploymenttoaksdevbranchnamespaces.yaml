@@ -31,7 +31,7 @@ pipeline:
                   name: 2m wait
                   identifier: m_wait
                   spec:
-                    duration: 2m
+                    duration: 30s
               - step:
                   type: K8sRollingDeploy
                   name: k8srolloutdeployment
