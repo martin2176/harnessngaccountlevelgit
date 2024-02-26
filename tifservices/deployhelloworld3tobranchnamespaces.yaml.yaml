@@ -25,3 +25,7 @@ inputSet:
                             type: DockerRegistry
                             spec:
                               tag: br_snapshot
+    variables:
+      - name: namespace
+        type: String
+        value: intbranch
