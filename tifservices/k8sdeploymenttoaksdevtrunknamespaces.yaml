@@ -4,7 +4,7 @@ pipeline:
   tags: {}
   stages:
     - stage:
-        name: k8sdeployment
+        name: k8sdeployment to int namespace
         identifier: k8sdeployment
         description: ""
         type: Deployment
