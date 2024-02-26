@@ -107,7 +107,6 @@ pipeline:
                 type: StageRollback
         when:
           pipelineStatus: Success
-          condition: "false"
     - stage:
         name: Post K8s DryRun to Git
         identifier: Post_K8s_DryRun_to_Git
