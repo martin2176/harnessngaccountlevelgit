@@ -25,6 +25,7 @@ pipeline:
                   timeout: 10m
                   when:
                     stageStatus: Success
+                    condition: <+infra.infraIdentifier> == 'intbranch'
               - step:
                   type: K8sRollingDeploy
                   name: k8srolloutdeployment
