@@ -63,7 +63,7 @@ pipeline:
     - parallel:
         - stage:
             name: k8sdeployment to dev namespace
-            identifier: k8sdeployment_to_dev_and_at_namespace
+            identifier: k8sdeployment_to_dev_namespace
             description: ""
             type: Deployment
             spec:
