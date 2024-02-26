@@ -17,8 +17,8 @@ pipeline:
             steps:
               - step:
                   type: Queue
-                  name: queue-pipeline-on-int-branch
-                  identifier: queuepipelineonintbranch
+                  name: queue-pipeline-on-int-trunk
+                  identifier: queuepipelineoninttrunk
                   spec:
                     key: <+env.identifier>-<+infra.infraIdentifier>
                     scope: Pipeline
