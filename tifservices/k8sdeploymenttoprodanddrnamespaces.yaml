@@ -237,6 +237,7 @@ pipeline:
                 type: StageRollback
         when:
           pipelineStatus: Success
+          condition: "false"
     - stage:
         name: Test ApigeeProxy
         identifier: Test_ApigeeProxy
