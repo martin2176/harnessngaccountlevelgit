@@ -27,6 +27,12 @@ pipeline:
                     stageStatus: Success
                     condition: <+infra.infraIdentifier> == 'intbranch'
               - step:
+                  type: Wait
+                  name: 2m wait
+                  identifier: m_wait
+                  spec:
+                    duration: 2m
+              - step:
                   type: K8sRollingDeploy
                   name: k8srolloutdeployment
                   identifier: k8srolloutdeployment
