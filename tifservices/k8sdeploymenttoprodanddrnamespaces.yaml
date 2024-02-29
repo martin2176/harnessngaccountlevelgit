@@ -216,7 +216,7 @@ pipeline:
                     assertion: <+httpResponseCode> == 200
                     certificate: mtlsclientcert
                     certificateKey: mtlsclientkey
-                  timeout: 30s
+                  timeout: 1m
                   failureStrategies:
                     - onFailure:
                         errors:
