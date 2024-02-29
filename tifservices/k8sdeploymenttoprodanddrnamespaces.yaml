@@ -218,7 +218,7 @@ pipeline:
                       - name: output1
                         value: <+<+httpResponseBody>.contains("Hello")>
                         type: String
-                    assertion: "true"
+                    assertion: <+<+httpResponseBody>.contains("Hello")>
                     certificate: mtlsclientcert
                     certificateKey: mtlsclientkey
                   timeout: 1m
