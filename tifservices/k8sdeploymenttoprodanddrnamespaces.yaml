@@ -215,7 +215,7 @@ pipeline:
                     headers: []
                     inputVariables: []
                     outputVariables: []
-                    assertion: <+<+httpResponseBody>.contains("Hello")>
+                    assertion: <+<+httpResponseBody>.contains("Hello")> == true
                     certificate: mtlsclientcert
                     certificateKey: mtlsclientkey
                   timeout: 1m
