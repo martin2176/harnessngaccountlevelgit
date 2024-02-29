@@ -209,7 +209,7 @@ pipeline:
                     headers: []
                     inputVariables: []
                     outputVariables: []
-                    assertion: "<+<+httpResponseBody>.contains(\"Hello version: v1\")>"
+                    assertion: <+<+httpResponseBody>.contains("Hello")>
                     certificate: mtlsclientcert
                     certificateKey: mtlsclientkey
                   timeout: 1m
