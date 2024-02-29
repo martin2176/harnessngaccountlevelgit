@@ -215,7 +215,7 @@ pipeline:
                     headers: []
                     inputVariables: []
                     outputVariables:
-                      - name: output1
+                      - name: assertionoutputvar
                         value: <+<+httpResponseBody>.contains("Hello")>
                         type: String
                     assertion: <+<+httpResponseBody>.contains("Hello")>
