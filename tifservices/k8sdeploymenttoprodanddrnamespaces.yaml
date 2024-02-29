@@ -214,8 +214,11 @@ pipeline:
                     method: GET
                     headers: []
                     inputVariables: []
-                    outputVariables: []
-                    assertion: <+<+httpResponseBody>.contains("Hello")>
+                    outputVariables:
+                      - name: output1
+                        value: <+<+httpResponseBody>.contains("Hello")>
+                        type: String
+                    assertion: "true"
                     certificate: mtlsclientcert
                     certificateKey: mtlsclientkey
                   timeout: 1m
