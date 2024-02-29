@@ -216,9 +216,9 @@ pipeline:
                     inputVariables: []
                     outputVariables:
                       - name: assertionoutputvar
-                        value: <+<+httpResponseBody>.contains("Hello")>
+                        value: <+<+httpResponseBody>.contains("1Hello")>
                         type: String
-                    assertion: <+<+httpResponseBody>.contains("Hello")>
+                    assertion: <+<+httpResponseBody>.contains("1Hello")>
                     certificate: mtlsclientcert
                     certificateKey: mtlsclientkey
                   timeout: 1m
