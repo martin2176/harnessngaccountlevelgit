@@ -216,9 +216,9 @@ pipeline:
                     inputVariables: []
                     outputVariables:
                       - name: assertionoutputvar
-                        value: (<+httpResponseCode> == 200) && <+httpResponseBody>.contains("Hello")
+                        value: (<+httpResponseCode> == 200) && (<+httpResponseBody>.contains("Hello"))
                         type: String
-                    assertion: (<+httpResponseCode> == 200) && <+httpResponseBody>.contains("Hello")
+                    assertion: (<+httpResponseCode> == 200) && (<+httpResponseBody>.contains("Hello"))
                     certificate: mtlsclientcert
                     certificateKey: mtlsclientkey
                   timeout: 1m
