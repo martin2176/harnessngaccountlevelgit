@@ -214,8 +214,8 @@ pipeline:
                     inputVariables: []
                     outputVariables: []
                     assertion: <+httpResponseCode> == 200
-                    certificate: <+secrets.getValue("mtlsclientcert")>
-                    certificateKey: <+secrets.getValue("mtlsclientkey")>
+                    certificate: mtlsclientcert
+                    certificateKey: mtlsclientkey
                   timeout: 30s
                   failureStrategies:
                     - onFailure:
