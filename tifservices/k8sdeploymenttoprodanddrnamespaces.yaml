@@ -206,6 +206,12 @@ pipeline:
                     stageStatus: Success
                     condition: "false"
               - step:
+                  type: Wait
+                  name: Wait_1
+                  identifier: Wait_1
+                  spec:
+                    duration: 1m
+              - step:
                   type: Http
                   name: Test Istio Ingress mTLS HTTPS
                   identifier: Test_Istio_Ingress_mTLS_HTTPS
