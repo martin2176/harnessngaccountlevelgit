@@ -305,5 +305,4 @@ pipeline:
                 type: StageRollback
         when:
           pipelineStatus: Success
-          condition: "false"
   allowStageExecutions: false
