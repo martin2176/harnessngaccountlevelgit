@@ -248,6 +248,9 @@ pipeline:
                           cat > /tmp/apiproxy.xml << 'EOF'
                           <+configFile.getAsString("apiproxyxml")>
                           EOF
+                          cat /tmp/apiproxy.xml
+
+                          echo "<+configFile.getAsString("apiproxyxml")>"
                           rm -f /tmp/apiproxy.xml
                     environmentVariables: []
                     outputVariables: []
