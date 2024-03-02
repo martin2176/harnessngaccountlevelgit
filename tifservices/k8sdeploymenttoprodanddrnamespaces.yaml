@@ -234,6 +234,24 @@ pipeline:
                           - AllErrors
                         action:
                           type: Ignore
+              - step:
+                  type: ShellScript
+                  name: Show me the rendered apiproxy xml
+                  identifier: Show_me_the_rendered_apiproxy_xml
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: |-
+                          cat > /tmp/apiproxy.xml << 'EOF'
+                          <+configFile.getAsString("apiproxyxml")>
+                          EOF
+                          rm -f /tmp/apiproxy.xml
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 1m
             rollbackSteps: []
           services:
             useFromStage:
@@ -311,4 +329,5 @@ pipeline:
                 type: StageRollback
         when:
           pipelineStatus: Success
+          condition: "false"
   allowStageExecutions: false
