@@ -244,17 +244,12 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: |-
-                          cat > /tmp/apiproxy.xml << 'EOF'
-                          <+configFile.getAsString("apiproxyxml")>
-                          EOF
-                          cat /tmp/apiproxy.xml
+                        script: |
                           echo "---------------------------------------------"
-
+                          echo ""
                           echo "<+configFile.getAsString("apiproxyxml")>"
+                          echo ""
                           echo "---------------------------------------------"
-
-                          rm -f /tmp/apiproxy.xml
                     environmentVariables: []
                     outputVariables: []
                   timeout: 1m
