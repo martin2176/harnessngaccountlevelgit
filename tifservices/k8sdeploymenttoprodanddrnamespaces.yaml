@@ -42,8 +42,8 @@ pipeline:
                           echo <+env.identifier>
                           echo <+pipeline.variables.envname>
                           echo <+stage.identifier>
-                          echo <+serviceVariables.requests.cpu>
-                          echo <+serviceVariables.requests.memory>
+                          echo <+serviceVariables.requestscpu>
+                          echo <+serviceVariables.requestsmemory>
                           echo <+serviceVariables.variablesname>
                           echo <+serviceVariables.variable.name>
                           echo <+serviceVariables.apigeeproxyfqdn>
