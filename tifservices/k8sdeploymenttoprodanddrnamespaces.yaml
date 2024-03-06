@@ -45,6 +45,7 @@ pipeline:
                           echo <+serviceVariables.requests.cpu>
                           echo <+serviceVariables.requests.memory>
                           echo <+serviceVariables.variablesname>
+                          echo <+serviceVariables.variable.name>
                           echo <+serviceVariables.apigeeproxyfqdn>
                     environmentVariables: []
                     outputVariables: []
