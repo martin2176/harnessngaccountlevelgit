@@ -36,7 +36,17 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: echo <+serviceVariables.get("requests.memory")>
+                        script: |-
+                          echo <+pipeline.stages.k8sdeployment.variables.environment>
+                          echo <+stage.variables.environment>
+                          echo <+env.identifier>
+                          echo <+pipeline.variables.envname>
+                          echo <+stage.identifier>
+                          echo <+serviceVariables.requestscpu>
+                          echo <+serviceVariables.requestsmemory>
+                          echo <+serviceVariables.variablesname>
+                          echo <+serviceVariables.variable.name>
+                          echo <+serviceVariables.apigeeproxyfqdn>
                     environmentVariables: []
                     outputVariables: []
                   timeout: 30s
