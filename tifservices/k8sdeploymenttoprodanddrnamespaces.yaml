@@ -36,7 +36,7 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: echo <+serviceVariables.get(requests.memory)>
+                        script: echo <+serviceVariables.get("requests.memory")>
                     environmentVariables: []
                     outputVariables: []
                   timeout: 30s
