@@ -42,6 +42,8 @@ pipeline:
                           echo <+env.identifier>
                           echo <+pipeline.variables.envname>
                           echo <+stage.identifier>
+                          echo <+serviceVariables.requests.cpu>
+                          echo <+serviceVariables.requests.memory>
                     environmentVariables: []
                     outputVariables: []
                   timeout: 30s
