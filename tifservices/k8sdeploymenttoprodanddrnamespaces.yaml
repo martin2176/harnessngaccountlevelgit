@@ -84,6 +84,12 @@ pipeline:
                     outputVariables: []
                   timeout: 1m
               - step:
+                  name: post k8s dryrun to git
+                  identifier: post_k8s_dryrun_to_git
+                  template:
+                    templateRef: Post_Anything_to_Git
+                    versionLabel: version2
+              - step:
                   name: k8srolloutdeployment
                   identifier: k8srolloutdeployment
                   type: K8sRollingDeploy
