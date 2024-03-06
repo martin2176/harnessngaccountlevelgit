@@ -322,4 +322,4 @@ pipeline:
                 type: StageRollback
         when:
           pipelineStatus: Success
-  allowStageExecutions: false
+  allowStageExecutions: true
