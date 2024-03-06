@@ -202,7 +202,6 @@ pipeline:
                   timeout: 30s
                   when:
                     stageStatus: Success
-                    condition: "false"
               - step:
                   type: Http
                   name: Test Istio Ingress mTLS HTTPS
@@ -257,7 +256,7 @@ pipeline:
               errors:
                 - AllErrors
               action:
-                type: StageRollback
+                type: PipelineRollback
         when:
           pipelineStatus: Success
     - stage:
@@ -319,7 +318,7 @@ pipeline:
               errors:
                 - AllErrors
               action:
-                type: StageRollback
+                type: Ignore
         when:
           pipelineStatus: Success
   allowStageExecutions: true
