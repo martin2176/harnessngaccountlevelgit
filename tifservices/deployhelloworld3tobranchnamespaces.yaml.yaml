@@ -25,3 +25,12 @@ inputSet:
                             type: DockerRegistry
                             spec:
                               tag: br_snapshot
+                    variables:
+                      - name: requestscpu
+                        type: String
+                        default: 50m
+                        value: 50m
+                      - name: requestsmemory
+                        type: String
+                        default: 64Mi
+                        value: 64Mi
