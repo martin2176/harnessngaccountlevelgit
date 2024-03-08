@@ -53,5 +53,86 @@ pipeline:
                 - AllErrors
               action:
                 type: StageRollback
+    - parallel:
+        - stage:
+            name: k8sdeployment to dev namespace
+            identifier: k8sdeployment_to_dev_namespace
+            description: ""
+            type: Deployment
+            spec:
+              deploymentType: Kubernetes
+              service:
+                useFromStage:
+                  stage: k8sdeployment
+              environment:
+                environmentRef: aksdev
+                deployToAll: false
+                infrastructureDefinitions:
+                  - identifier: devtrunk
+              execution:
+                steps:
+                  - step:
+                      name: k8srolloutdeployment
+                      identifier: k8srolloutdeployment
+                      type: K8sRollingDeploy
+                      timeout: 2m
+                      spec:
+                        skipDryRun: false
+                        pruningEnabled: false
+                rollbackSteps:
+                  - step:
+                      name: Rollback Rollout Deployment
+                      identifier: rollbackRolloutDeployment
+                      type: K8sRollingRollback
+                      timeout: 10m
+                      spec:
+                        pruningEnabled: false
+            tags: {}
+            failureStrategies:
+              - onFailure:
+                  errors:
+                    - AllErrors
+                  action:
+                    type: StageRollback
+        - stage:
+            name: k8sdeployment to at namespace
+            identifier: k8sdeployment_to_at_namespace
+            description: ""
+            type: Deployment
+            spec:
+              deploymentType: Kubernetes
+              service:
+                useFromStage:
+                  stage: k8sdeployment
+              environment:
+                environmentRef: aksdev
+                deployToAll: false
+                infrastructureDefinitions:
+                  - identifier: attrunk
+              execution:
+                steps:
+                  - step:
+                      name: k8srolloutdeployment
+                      identifier: k8srolloutdeployment
+                      type: K8sRollingDeploy
+                      timeout: 2m
+                      spec:
+                        skipDryRun: false
+                        pruningEnabled: false
+                rollbackSteps:
+                  - step:
+                      name: Rollback Rollout Deployment
+                      identifier: rollbackRolloutDeployment
+                      type: K8sRollingRollback
+                      timeout: 10m
+                      spec:
+                        pruningEnabled: false
+            tags: {}
+            failureStrategies:
+              - onFailure:
+                  errors:
+                    - AllErrors
+                  action:
+                    type: StageRollback
   identifier: k8sdeploymenttoaksdevtrunknamespaces
   name: k8sdeployment-to-aksdev-trunk-namespaces
