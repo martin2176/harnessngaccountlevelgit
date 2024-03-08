@@ -1,0 +1,25 @@
+service:
+  name: namespace
+  identifier: namespace
+  orgIdentifier: tif
+  projectIdentifier: demonstration
+  serviceDefinition:
+    spec:
+      manifests:
+        - manifest:
+            identifier: namespaceartifacts
+            type: K8sManifest
+            spec:
+              store:
+                type: Github
+                spec:
+                  connectorRef: org.harnessngdemo
+                  gitFetchType: Branch
+                  paths:
+                    - namespaces/artifacts/namespace-<+pipeline.variables.operation>.yaml
+                  branch: main
+              valuesPaths:
+                - namespaces/values.yaml
+              skipResourceVersioning: false
+              enableDeclarativeRollback: false
+    type: Kubernetes
