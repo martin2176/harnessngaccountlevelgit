@@ -1,5 +1,6 @@
 inputSet:
   name: deploy-helloworld2-to-trunknamespaces
+  tags: {}
   identifier: deployhelloworld2totrunknamespaces
   orgIdentifier: tif
   projectIdentifier: tifservices
@@ -24,3 +25,12 @@ inputSet:
                             type: DockerRegistry
                             spec:
                               tag: snapshot
+                    variables:
+                      - name: requestscpu
+                        type: String
+                        default: 50m
+                        value: 50m
+                      - name: requestsmemory
+                        type: String
+                        default: 64Mi
+                        value: 64Mi
