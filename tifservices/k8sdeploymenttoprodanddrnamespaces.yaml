@@ -118,6 +118,7 @@ pipeline:
                 type: StageRollback
         when:
           pipelineStatus: Success
+          condition: "false"
     - stage:
         name: Post K8s DryRun to Git
         identifier: Post_K8s_DryRun_to_Git
@@ -135,6 +136,7 @@ pipeline:
         tags: {}
         when:
           pipelineStatus: Success
+          condition: "false"
     - stage:
         name: Test K8s Service and Istio Ingress
         identifier: Test_Stage
@@ -246,10 +248,20 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: |
+                        script: |-
                           echo "---------------------------------------------"
                           echo ""
                           echo "<+configFile.getAsString("apiproxyxml")>"
+                          echo ""
+                          echo "---------------------------------------------"
+                          echo "---------------------------------------------"
+                          echo ""
+                          echo "<+configFile.getAsString("samplejson")>"
+                          echo ""
+                          echo "---------------------------------------------"
+                          echo "---------------------------------------------"
+                          echo ""
+                          echo "<+configFile.getAsString("sampleyaml")>"
                           echo ""
                           echo "---------------------------------------------"
                     environmentVariables: []
@@ -337,4 +349,5 @@ pipeline:
                 type: Ignore
         when:
           pipelineStatus: Success
+          condition: "false"
   allowStageExecutions: true
