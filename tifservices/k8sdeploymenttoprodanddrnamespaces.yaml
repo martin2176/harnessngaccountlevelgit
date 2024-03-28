@@ -132,6 +132,25 @@ pipeline:
                   template:
                     templateRef: Post_Anything_to_Git
                     versionLabel: version2
+              - step:
+                  name: teamsnotification
+                  identifier: teamsnotification
+                  template:
+                    templateRef: org.MSTeamsNotification
+                    versionLabel: version2
+                    templateInputs:
+                      type: ShellScript
+                      spec:
+                        environmentVariables:
+                          - name: title
+                            type: String
+                            value: Notification from Harness Prod
+                          - name: subtitle
+                            type: String
+                            value: You have a new deployment
+                          - name: webhookurl
+                            type: Secret
+                            value: msteamswebhookapprovaldemochannel
         tags: {}
         when:
           pipelineStatus: Success
