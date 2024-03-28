@@ -27,7 +27,7 @@ template:
             "@type": "MessageCard",
             "@context":"http://schema.org/extensions",
             "themeColor":"0076D7",
-            "summary":"foo",
+            "summary":"${title}",
             "title":"${title}",
             "sections": [{
             "activitySubtitle": "${subtitle}",
