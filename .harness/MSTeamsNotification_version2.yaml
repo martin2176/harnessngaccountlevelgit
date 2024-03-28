@@ -40,7 +40,7 @@ template:
             }]
             }
             EOF
-            WEBHOOKURL= "<+spec.environmentVariables.webhookurl>"
+            WEBHOOKURL="<+spec.environmentVariables.webhookurl>"
 
             echo $WEBHOOKURL> /tmp/1
 
