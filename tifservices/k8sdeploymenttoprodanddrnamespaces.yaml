@@ -304,7 +304,6 @@ pipeline:
                       type: MarkAsSuccess
         when:
           pipelineStatus: Success
-          condition: "false"
     - stage:
         name: Test ApigeeProxy
         identifier: Test_ApigeeProxy
@@ -367,5 +366,4 @@ pipeline:
                 type: Ignore
         when:
           pipelineStatus: Success
-          condition: "false"
   allowStageExecutions: true
