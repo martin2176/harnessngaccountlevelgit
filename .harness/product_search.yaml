@@ -1,0 +1,48 @@
+inputSet:
+  name: product search
+  identifier: product_search
+  orgIdentifier: tif
+  projectIdentifier: tifservices
+  pipeline:
+    identifier: k8sdeploymenttoprodanddrnamespaces
+    stages:
+      - stage:
+          identifier: k8sdeployment
+          type: Deployment
+          spec:
+            services:
+              values:
+                - serviceRef: helloworld2
+                  serviceInputs:
+                    serviceDefinition:
+                      type: Kubernetes
+                      spec:
+                        artifacts:
+                          primary:
+                            primaryArtifactRef: prodhelloworld2dockerregistry
+                        variables:
+                          - name: requestscpu
+                            type: String
+                            default: 50m
+                            value: 50m
+                          - name: requestsmemory
+                            type: String
+                            default: 64Mi
+                            value: 64Mi
+                - serviceRef: helloworld3
+                  serviceInputs:
+                    serviceDefinition:
+                      type: Kubernetes
+                      spec:
+                        artifacts:
+                          primary:
+                            primaryArtifactRef: prodhelloworld3dockerregistry
+                        variables:
+                          - name: requestscpu
+                            type: String
+                            default: 50m
+                            value: 50m
+                          - name: requestsmemory
+                            type: String
+                            default: 64Mi
+                            value: 64Mi
