@@ -351,6 +351,8 @@ pipeline:
                                 type: MarkAsSuccess
                   when:
                     stageStatus: Success
+                  strategy:
+                    parallelism: 3
             rollbackSteps: []
           services:
             useFromStage:
