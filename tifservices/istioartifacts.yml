@@ -1,0 +1,25 @@
+service:
+  name: istioartifacts
+  identifier: istioartifacts
+  orgIdentifier: tif
+  projectIdentifier: tifservices
+  serviceDefinition:
+    spec:
+      manifests:
+        - manifest:
+            identifier: istiotlscert
+            type: K8sManifest
+            spec:
+              store:
+                type: Github
+                spec:
+                  connectorRef: martin2176helloworld
+                  gitFetchType: Branch
+                  paths:
+                    - istio/istio-tls-cert.yaml
+                  branch: main
+              valuesPaths:
+                - istio/values.yaml
+              skipResourceVersioning: false
+              enableDeclarativeRollback: false
+    type: Kubernetes
