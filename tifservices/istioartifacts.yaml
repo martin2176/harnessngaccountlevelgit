@@ -13,7 +13,7 @@ service:
               store:
                 type: Github
                 spec:
-                  connectorRef: martin2176helloworld
+                  connectorRef: tifakscommonmanifest
                   gitFetchType: Branch
                   paths:
                     - istio/istio-tls-cert.yaml
