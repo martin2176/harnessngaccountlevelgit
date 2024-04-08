@@ -40,6 +40,9 @@ template:
         - name: dnsteststatus
           type: String
           value: dnsteststatus
+      outputAlias:
+        scope: Pipeline
+        key: pipelinescope
     failureStrategies:
       - onFailure:
           errors:
