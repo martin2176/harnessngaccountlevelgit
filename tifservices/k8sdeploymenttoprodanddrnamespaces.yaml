@@ -370,3 +370,8 @@ pipeline:
           pipelineStatus: Success
           condition: "false"
   allowStageExecutions: true
+  properties:
+    ci:
+      codebase:
+        connectorRef: tifakscommonmanifest
+        build: <+input>
